@@ -240,6 +240,36 @@ h2 {
     background-color: #00796b;
 }
 
+/* --- Language Selector Styles --- */
+.language-selector {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.language-selector .lang-button {
+    background-color: #e0f2f1; /* Warna latar belakang tombol bahasa */
+    color: #00897b; /* Warna teks tombol bahasa */
+    border: 1px solid #00897b;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+}
+
+.language-selector .lang-button:hover {
+    background-color: #c8e6c9; /* Warna hover */
+}
+
+.language-selector .lang-button.active {
+    background-color: #00897b; /* Warna aktif */
+    color: white;
+    font-weight: bold;
+}
+
+
 /* Responsif untuk Mobile */
 @media (max-width: 600px) {
     .container {
