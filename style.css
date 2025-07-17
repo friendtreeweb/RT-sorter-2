@@ -1,0 +1,282 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Mengubah dari center agar tidak terlalu ke bawah */
+    min-height: 100vh;
+    background-color: #e0f2f1; /* Warna latar belakang umum */
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 800px; /* Batasi lebar container */
+    margin-top: 20px; /* Sedikit ruang dari atas */
+}
+
+h1 {
+    color: #00897b; /* Hijau tosca utama */
+    margin-bottom: 25px;
+}
+
+h2 {
+    color: #00796b; /* Hijau tosca sedikit lebih gelap */
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-bottom: 30px;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
+}
+
+.section:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Kategori */
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.category-buttons button {
+    background-color: #26a69a; /* Hijau tosca */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    min-width: 120px; /* Lebar minimum tombol */
+}
+
+.category-buttons button:hover {
+    background-color: #00897b; /* Hijau tosca lebih gelap saat hover */
+}
+
+/* Progress Bar */
+.progress-bar-container {
+    width: 80%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    height: 20px;
+    margin: 20px auto 10px;
+    overflow: hidden;
+}
+
+#progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #4db6ac; /* Hijau tosca yang lebih terang */
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+#progress-text {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Battle Container */
+.battle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Jarak antara gambar */
+    flex-wrap: wrap; /* Untuk responsif di mobile */
+}
+
+.idol-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    background-color: #f0fdfc; /* Latar belakang kartu idola */
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 10px;
+    transition: all 0.2s ease;
+    width: calc(50% - 30px); /* Hampir 50% lebar dikurangi gap */
+    max-width: 250px; /* Batasi lebar kartu */
+    box-sizing: border-box; /* Pastikan padding dan border termasuk dalam lebar */
+}
+
+.idol-card:hover {
+    border-color: #26a69a; /* Warna border saat hover */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.idol-card img {
+    width: 100%;
+    max-width: 200px; /* Batasi ukuran gambar */
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    aspect-ratio: 1 / 1; /* Membuat gambar kotak */
+    object-fit: cover; /* Memastikan gambar mengisi area tanpa distorsi */
+}
+
+.idol-card .idol-name {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.vs {
+    font-size: 2em;
+    font-weight: bold;
+    color: #00796b;
+    margin: 0 10px;
+}
+
+/* Controls (Draw Button) */
+.controls {
+    margin-top: 25px;
+}
+
+#draw-button {
+    background-color: #ffb74d; /* Warna oranye untuk seri */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+#draw-button:hover {
+    background-color: #ff9800; /* Oranye lebih gelap saat hover */
+}
+
+/* Results Section */
+#results-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 8px 15px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 400px;
+    text-align: left;
+}
+
+.result-item span {
+    font-weight: bold;
+    color: #00897b;
+    margin-right: 10px;
+    min-width: 30px; /* Agar nomor tidak bergeser */
+    text-align: right;
+}
+
+.result-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.result-item p {
+    margin: 0;
+    color: #333;
+}
+
+.share-download-options {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.share-download-options button, #restart-sorter {
+    background-color: #424242; /* Abu-abu gelap */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.share-download-options button:hover, #restart-sorter:hover {
+    background-color: #212121;
+}
+
+#restart-sorter {
+    margin-top: 20px;
+    background-color: #00897b; /* Hijau tosca */
+}
+
+#restart-sorter:hover {
+    background-color: #00796b;
+}
+
+/* Responsif untuk Mobile */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        margin-top: 10px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .category-buttons button {
+        width: 100%; /* Tombol kategori penuh lebar */
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    .battle-container {
+        flex-direction: row; /* Tetap kiri-kanan */
+        gap: 10px; /* Kurangi gap */
+    }
+
+    .idol-card {
+        width: calc(50% - 15px); /* Sesuaikan lebar kartu */
+        padding: 5px;
+    }
+
+    .idol-card img {
+        max-width: 150px; /* Sesuaikan ukuran gambar */
+    }
+
+    .vs {
+        font-size: 1.5em;
+    }
+
+    #draw-button, .share-download-options button, #restart-sorter {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
