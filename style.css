@@ -243,40 +243,84 @@ h2 {
 /* Responsif untuk Mobile */
 @media (max-width: 600px) {
     .container {
-        padding: 20px;
+        padding: 15px; /* Sedikit kurangi padding di mobile */
         margin-top: 10px;
     }
 
     h1 {
-        font-size: 1.8em;
+        font-size: 1.6em; /* Ukuran font lebih kecil untuk judul */
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+
+    .category-buttons {
+        flex-direction: column; /* Tombol kategori tetap vertikal di mobile */
+        gap: 10px;
     }
 
     .category-buttons button {
-        width: 100%; /* Tombol kategori penuh lebar */
+        width: 90%; /* Lebar tombol kategori hampir penuh */
+        max-width: 300px; /* Batasi lebar maksimum */
+        margin: 0 auto; /* Tengahkankan tombol */
         font-size: 1em;
         padding: 10px;
     }
 
     .battle-container {
-        flex-direction: row; /* Tetap kiri-kanan */
-        gap: 10px; /* Kurangi gap */
+        flex-direction: row; /* TETAPKAN KIRI-KANAN */
+        flex-wrap: nowrap; /* PENTING: Jangan biarkan item membungkus */
+        justify-content: center; /* Pusatkan item */
+        gap: 10px; /* Kurangi jarak */
+        overflow-x: auto; /* Tambahkan scroll horizontal jika terlalu sempit */
+        padding-bottom: 10px; /* Ruang untuk scrollbar jika muncul */
     }
 
     .idol-card {
-        width: calc(50% - 15px); /* Sesuaikan lebar kartu */
+        /* Gunakan flex-shrink untuk membiarkan mereka mengecil jika perlu */
+        flex-shrink: 1;
+        /* Berikan lebar minimum agar tidak terlalu kecil */
+        min-width: 120px; /* Sesuaikan sesuai kebutuhan, bisa lebih kecil jika mau */
+        width: 45%; /* Berikan persentase agar mereka bisa berbagi ruang */
         padding: 5px;
+        box-sizing: border-box; /* Penting agar padding masuk perhitungan lebar */
     }
 
     .idol-card img {
-        max-width: 150px; /* Sesuaikan ukuran gambar */
+        width: 100%; /* Gambar mengisi lebar kartu */
+        height: auto;
+        max-width: 120px; /* Batasi ukuran gambar agar tidak terlalu besar */
+        margin-bottom: 5px;
+    }
+
+    .idol-card .idol-name {
+        font-size: 0.9em; /* Ukuran font nama lebih kecil */
+        word-break: break-word; /* Memungkinkan nama panjang untuk pecah baris */
+        text-align: center;
     }
 
     .vs {
-        font-size: 1.5em;
+        font-size: 1.2em; /* Ukuran font "VS" lebih kecil */
+        margin: 0 5px; /* Kurangi margin di sekitar "VS" */
     }
 
     #draw-button, .share-download-options button, #restart-sorter {
-        width: 100%;
-        margin-top: 10px;
+        width: 90%; /* Lebar tombol aksi hampir penuh */
+        max-width: 300px;
+        margin: 10px auto; /* Tengahkankan tombol dan beri sedikit margin */
+        font-size: 0.95em;
+        padding: 10px 15px;
+    }
+
+    .result-item {
+        width: 90%; /* Sesuaikan lebar item hasil */
+        padding: 6px 10px;
+        font-size: 0.9em;
+    }
+
+    .result-item img {
+        width: 35px;
+        height: 35px;
     }
 }
