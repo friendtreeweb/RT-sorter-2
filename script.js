@@ -1,23 +1,143 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Definisi anggota (nama asli/Romaji - ini adalah kunci untuk terjemahan)
     const members = [
-        { name: 'Ayase Kotori', image: 'RT_Kotori.jpeg' },
-        { name: 'Endo Rino', image: 'RT_Rino.jpeg' },
-        { name: 'Yoshikawa Umi', image: 'RT_Umi.jpeg' },
-        { name: 'Mizuno Noa', image: 'RT_Noa.jpeg' },
-        { name: 'Ichihara Tsumugi', image: 'RT_Tsumugi.jpeg' },
-        { name: 'Sato Rica', image: 'RT_Rica.jpeg' },
-        { name: 'Katase Manaka', image: 'RT_Manaka.jpeg' },
-        { name: 'Hayama Rico', image: 'RT_Rico.jpeg' },
-        { name: 'Nino Fuka', image: 'RT_Fuka.jpeg' },
-        { name: 'Momose Suzuna', image: 'RT_Suzuna.jpeg' },
-        { name: 'Suzuno Mio', image: 'RT_Mio.jpeg' },
-        { name: 'Nakamata Miki', image: 'RT_Miki.jpeg' },
-        { name: 'Hashimoto Maki', image: 'RT_Maki.jpeg' },
-        { name: 'Kurosawa Karen', image: 'RT_Karen.jpeg' },
-        { name: 'Kato Shu', image: 'RT_Shu.jpeg' },
-        { name: 'Nagase Mari', image: 'RT_Mari.jpeg' },
-        { name: 'Asamiya Hinata', image: 'RT_Hinata.jpeg' },
+        { name: 'Ayase Kotori', image: 'RT_AyaseKotori.jpeg' },
+        { name: 'Endo Rino', image: 'RT_EndoRino.jpeg' },
+        { name: 'Yoshikawa Umi', image: 'RT_YoshikawaUmi.jpeg' },
+        { name: 'Mizuno Noa', image: 'RT_MizunoNoa.jpeg' },
+        { name: 'Ichihara Tsumugi', image: 'RT_IchiharaTsumugi.jpeg' },
+        { name: 'Sato Rica', image: 'RT_SatoRica.jpeg' },
+        { name: 'Katase Manaka', image: 'RT_KataseManaka.jpeg' },
+        { name: 'Hayama Rico', image: 'RT_HayamaRico.jpeg' },
+        { name: 'Nino Fuka', image: 'RT_NinoFuka.jpeg' },
+        { name: 'Momose Suzuna', image: 'RT_MomoseSuzuna.jpeg' },
+        { name: 'Suzuno Mio', image: 'RT_SuzunoMio.jpeg' },
+        { name: 'Nakamata Miki', image: 'RT_NakamataMiki.jpeg' },
+        { name: 'Hashimoto Maki', image: 'RT_HashimotoMaki.jpeg' },
+        { name: 'Kurosawa Karen', image: 'RT_KurosawaKaren.jpeg' },
+        { name: 'Kato Shu', image: 'RT_KatoShu.jpeg' },
+        { name: 'Nagase Mari', image: 'RT_NagaseMari.jpeg' },
+        { name: 'Asamiya Hinata', image: 'RT_AsamiyaHinata.jpeg' },
     ];
+
+    // --- Objek Terjemahan (Translations) ---
+    const translations = {
+        id: {
+            pageTitle: 'Rain Tree Idola Sorter',
+            mainTitle: 'Rain Tree Idola Sorter',
+            chooseCategory: 'Pilih Kategori Sorter:',
+            categoryGeneral: 'Umum',
+            categoryVisual: 'Visual',
+            categoryTalent: 'Bakat',
+            categoryComedian: 'Pelawak',
+            progressText: 'Proses:',
+            vsText: 'VS',
+            drawButton: 'Seri (Draw)',
+            downloadResults: 'Unduh Hasil (Gambar)',
+            shareResults: 'Bagikan',
+            restartButton: 'Mulai Ulang',
+            resultsGeneral: 'Member favoritmu adalah:',
+            resultsTalent: 'Member paling berbakat versi kamu:',
+            resultsVisual: 'Visual terbaik versi kamu:',
+            resultsComedian: 'Member terlucu versi kamu:',
+            // Terjemahan nama anggota (Romaji untuk ID)
+            'Ayase Kotori': 'Ayase Kotori',
+            'Endo Rino': 'Endo Rino',
+            'Yoshikawa Umi': 'Yoshikawa Umi',
+            'Mizuno Noa': 'Mizuno Noa',
+            'Ichihara Tsumugi': 'Ichihara Tsumugi',
+            'Sato Rica': 'Sato Rica',
+            'Katase Manaka': 'Katase Manaka',
+            'Hayama Rico': 'Hayama Rico',
+            'Nino Fuka': 'Nino Fuka',
+            'Momose Suzuna': 'Momose Suzuna',
+            'Suzuno Mio': 'Suzuno Mio',
+            'Nakamata Miki': 'Nakamata Miki',
+            'Hashimoto Maki': 'Hashimoto Maki',
+            'Kurosawa Karen': 'Kurosawa Karen',
+            'Kato Shu': 'Kato Shu',
+            'Nagase Mari': 'Nagase Mari',
+            'Asamiya Hinata': 'Asamiya Hinata',
+        },
+        en: {
+            pageTitle: 'Rain Tree Idol Sorter',
+            mainTitle: 'Rain Tree Idol Sorter',
+            chooseCategory: 'Choose Sorter Category:',
+            categoryGeneral: 'General',
+            categoryVisual: 'Visual',
+            categoryTalent: 'Talent',
+            categoryComedian: 'Comedian',
+            progressText: 'Progress:',
+            vsText: 'VS',
+            drawButton: 'Draw',
+            downloadResults: 'Download Results (Image)',
+            shareResults: 'Share',
+            restartButton: 'Restart',
+            resultsGeneral: 'Your favorite member is:',
+            resultsTalent: 'Your most talented member:',
+            resultsVisual: 'Your best visual member:',
+            resultsComedian: 'Your funniest member:',
+            // Terjemahan nama anggota (Romaji untuk EN)
+            'Ayase Kotori': 'Ayase Kotori',
+            'Endo Rino': 'Endo Rino',
+            'Yoshikawa Umi': 'Yoshikawa Umi',
+            'Mizuno Noa': 'Mizuno Noa',
+            'Ichihara Tsumugi': 'Ichihara Tsumugi',
+            'Sato Rica': 'Sato Rica',
+            'Katase Manaka': 'Katase Manaka',
+            'Hayama Rico': 'Hayama Rico',
+            'Nino Fuka': 'Nino Fuka',
+            'Momose Suzuna': 'Momose Suzuna',
+            'Suzuno Mio': 'Suzuno Mio',
+            'Nakamata Miki': 'Nakamata Miki',
+            'Hashimoto Maki': 'Hashimoto Maki',
+            'Kurosawa Karen': 'Kurosawa Karen',
+            'Kato Shu': 'Kato Shu',
+            'Nagase Mari': 'Nagase Mari',
+            'Asamiya Hinata': 'Asamiya Hinata',
+        },
+        jp: {
+            pageTitle: 'Rain Tree アイドルソーター',
+            mainTitle: 'Rain Tree アイドルソーター',
+            chooseCategory: 'ソーターカテゴリを選択してください:',
+            categoryGeneral: '総合',
+            categoryVisual: 'ビジュアル',
+            categoryTalent: '才能',
+            categoryComedian: 'おもしろい',
+            progressText: '進行状況:',
+            vsText: 'VS',
+            drawButton: '引き分け',
+            downloadResults: '結果をダウンロード (画像)',
+            shareResults: '共有',
+            restartButton: 'やり直す',
+            resultsGeneral: 'あなたのお気に入りのメンバーは:',
+            resultsTalent: 'あなたの最も才能のあるメンバー:',
+            resultsVisual: 'あなたの最高のビジュアルメンバー:',
+            resultsComedian: 'あなたの最も面白いメンバー:',
+            // Terjemahan nama anggota dalam Kanji/Kana yang benar
+            'Asamiya Hinata': '朝宮日向',
+            'Ayase Kotori': '綾瀬ことり',
+            'Endo Rino': '遠藤莉乃',
+            'Sato Rica': '佐藤莉華',
+            'Suzuno Mio': '鈴野みお',
+            'Nino Fuka': '新野楓果',
+            'Yoshikawa Umi': '吉川海未',
+            'Ichihara Tsumugi': '市原紬希',
+            'Katase Manaka': '片瀬真花',
+            'Kato Shu': '加藤柊',
+            'Kurosawa Karen': '黒澤禾恋',
+            'Nagase Mari': '永瀬真梨',
+            'Nakamata Miki': '仲俣美希',
+            'Hashimoto Maki': '橋本真希',
+            'Hayama Rico': '葉山莉瑚',
+            'Mizuno Noa': '水野乃愛',
+            'Momose Suzuna': '百瀬紗菜',
+        }
+    };
+
+    let currentLang = 'id'; // Bahasa default saat ini
+
+    // ... (kode yang sudah ada)
 
     let currentList = [];
     let currentIndex = 0;
@@ -32,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressBar = document.getElementById('progress-bar');
     const progressText = document.getElementById('progress-text');
     const idol1Card = document.getElementById('idol-1');
-    const idol2Card = document.getElementById('idol-2');
+    const idol2Card = document = document.getElementById('idol-2');
     const idol1Img = idol1Card.querySelector('img');
     const idol1Name = idol1Card.querySelector('.idol-name');
     const idol2Img = idol2Card.querySelector('img');
@@ -43,6 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const downloadResultsButton = document.getElementById('download-results');
     const shareResultsButton = document.getElementById('share-results');
     const restartSorterButton = document.getElementById('restart-sorter');
+    const langButtons = document.querySelectorAll('.language-selector .lang-button'); // Ambil tombol bahasa
+    const pageTitleElement = document.querySelector('title'); // Ambil elemen title
 
     // --- Fungsi Bantuan ---
     function shuffleArray(array) {
@@ -53,26 +175,70 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function calculateTotalComparisons(n) {
-        // Rumus untuk jumlah perbandingan dalam turnamen eliminasi
         if (n <= 1) return 0;
-        return (n * (n - 1)) / 2; // Ini jika setiap orang dibandingkan dengan setiap orang (lebih dari eliminasi langsung)
-                                 // Untuk sorter berbasis bracket, jumlahnya lebih dekat ke N-1 * log2(N)
-                                 // Namun, untuk kesederhanaan dan progress bar yang lebih terlihat, kita gunakan ini.
+        return (n * (n - 1)) / 2;
     }
+
+    // --- Fungsi Terjemahan ---
+    function setLanguage(lang) {
+        currentLang = lang;
+        // Hapus kelas 'active' dari semua tombol bahasa
+        langButtons.forEach(button => button.classList.remove('active'));
+        // Tambahkan kelas 'active' ke tombol yang dipilih
+        document.querySelector(`.lang-button[data-lang="${lang}"]`).classList.add('active');
+
+        // Terjemahkan semua elemen dengan data-key
+        document.querySelectorAll('[data-key]').forEach(element => {
+            const key = element.dataset.key;
+            if (translations[currentLang] && translations[currentLang][key]) {
+                if (element.tagName === 'TITLE') {
+                    element.textContent = translations[currentLang][key];
+                } else {
+                    element.textContent = translations[currentLang][key];
+                }
+            }
+        });
+
+        // Terjemahkan nama-nama anggota yang ditampilkan saat battle
+        // Pastikan idol1Card.dataset.name dan idol2Card.dataset.name ada sebelum mencoba menerjemahkan
+        if (!sorterSection.classList.contains('hidden') && idol1Card.dataset.name && idol2Card.dataset.name) {
+             const idol1NameElement = idol1Card.querySelector('.idol-name');
+             const idol2NameElement = idol2Card.querySelector('.idol-name');
+             const name1Original = idol1Card.dataset.name;
+             const name2Original = idol2Card.dataset.name;
+
+             if (translations[currentLang][name1Original]) {
+                 idol1NameElement.textContent = translations[currentLang][name1Original];
+             }
+             if (translations[currentLang][name2Original]) {
+                 idol2NameElement.textContent = translations[currentLang][name2Original];
+             }
+        }
+
+        // Terjemahkan nama anggota di daftar hasil akhir
+        if (!resultsSection.classList.contains('hidden')) {
+            updateResultsDisplay(); // Panggil ulang fungsi untuk memperbarui tampilan hasil
+        }
+
+        // Perbarui teks progres (jika ada)
+        updateProgressBar();
+    }
+
 
     // --- Inisialisasi Sorter ---
     function initializeSorter(category) {
         currentCategory = category;
         currentList = members.map(member => ({ ...member, wins: 0, losses: 0, draws: 0 }));
-        shuffleArray(currentList); // Acak daftar untuk perbandingan awal yang adil
+        shuffleArray(currentList);
         currentIndex = 0;
         comparisonsMade = 0;
-        totalComparisons = calculateTotalComparisons(currentList.length); // Perhitungan total perbandingan
+        totalComparisons = calculateTotalComparisons(currentList.length);
         updateProgressBar();
 
         categorySelectionSection.classList.add('hidden');
         sorterSection.classList.remove('hidden');
 
+        // Pastikan nama member di sorter ditampilkan dengan bahasa yang benar
         startNextComparison();
     }
 
@@ -80,50 +246,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateProgressBar() {
         if (totalComparisons === 0) {
             progressBar.style.width = '100%';
-            progressText.textContent = `Selesai!`;
+            // Menggunakan terjemahan untuk "Proses:" dan menambahkan "Selesai!"
+            progressText.textContent = `${translations[currentLang]['progressText']} Selesai!`;
             return;
         }
         const progressPercentage = (comparisonsMade / totalComparisons) * 100;
         progressBar.style.width = `${progressPercentage}%`;
-        progressText.textContent = `Proses: ${comparisonsMade} dari ${totalComparisons} perbandingan`;
+        progressText.textContent = `${translations[currentLang]['progressText']} ${comparisonsMade} / ${totalComparisons}`;
     }
 
     // --- Tampilkan Perbandingan Selanjutnya ---
-    function startNextComparison() {
-        if (currentIndex >= currentList.length - 1) {
-            // Jika sudah mencapai akhir daftar, mungkin perlu putaran lagi atau selesaikan
-            // Untuk metode sederhana, kita bisa anggap selesai jika sudah dibandingkan semua
-            // atau implementasi algoritma pengurutan yang lebih kompleks seperti Merge Sort Tournament
-            // Untuk saat ini, kita akan membuat algoritma sederhana:
-            // Setelah satu putaran, jika belum ada pemenang tunggal, acak ulang dan mulai lagi
-            // Atau, lebih baik, gunakan sistem ELO/rating atau QuickSort-like.
-
-            // Untuk demonstrasi sederhana: lakukan satu putaran penuh perbandingan acak
-            // Lalu tampilkan hasil berdasar jumlah kemenangan (atau implementasi quicksort-like)
-            if (comparisonsMade < totalComparisons) { // Masih ada perbandingan yang bisa dilakukan
-                const [idol1, idol2] = getRandomUniquePair();
-                if (idol1 && idol2) {
-                    displayBattle(idol1, idol2);
-                } else {
-                    // Semua kemungkinan pasangan sudah dibandingkan
-                    finishSorting();
-                }
-            } else {
-                finishSorting();
-            }
-            return;
-        }
-
-        const [idol1, idol2] = getRandomUniquePair(); // Pastikan pasangan unik dan belum dibandingkan
-        if (idol1 && idol2) {
-            displayBattle(idol1, idol2);
-        } else {
-            // Ini bisa terjadi jika semua pasangan sudah habis.
-            finishSorting();
-        }
-    }
-
-    const comparedPairs = new Set(); // Untuk melacak pasangan yang sudah dibandingkan
+    const comparedPairs = new Set();
 
     function getRandomUniquePair() {
         const availablePairs = [];
@@ -143,7 +276,23 @@ document.addEventListener('DOMContentLoaded', () => {
             comparedPairs.add(`${pair[0].name}-${pair[1].name}`);
             return pair;
         }
-        return [null, null]; // Tidak ada pasangan unik yang tersisa
+        return [null, null];
+    }
+
+    function startNextComparison() {
+        if (comparisonsMade >= totalComparisons) { // Cek apakah semua perbandingan sudah selesai
+            finishSorting();
+            return;
+        }
+
+        const [idol1, idol2] = getRandomUniquePair();
+        if (idol1 && idol2) {
+            displayBattle(idol1, idol2);
+        } else {
+            // Ini akan terjadi jika getRandomUniquePair tidak menemukan pasangan baru
+            // yang berarti semua kombinasi unik telah dibandingkan.
+            finishSorting();
+        }
     }
 
 
@@ -151,11 +300,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayBattle(idol1, idol2) {
         idol1Card.dataset.name = idol1.name;
         idol1Img.src = `images/${idol1.image}`;
-        idol1Name.textContent = idol1.name;
+        idol1Name.textContent = translations[currentLang][idol1.name] || idol1.name; // Terjemahkan nama
 
         idol2Card.dataset.name = idol2.name;
         idol2Img.src = `images/${idol2.image}`;
-        idol2Name.textContent = idol2.name;
+        idol2Name.textContent = translations[currentLang][idol2.name] || idol2.name; // Terjemahkan nama
     }
 
     // --- Logika Pemilihan Pemenang/Seri ---
@@ -190,33 +339,36 @@ document.addEventListener('DOMContentLoaded', () => {
         sorterSection.classList.add('hidden');
         resultsSection.classList.remove('hidden');
 
-        // Urutkan hasil berdasarkan kemenangan, lalu seri, lalu abjad nama
         currentList.sort((a, b) => {
             if (b.wins !== a.wins) return b.wins - a.wins;
             if (b.draws !== a.draws) return b.draws - a.draws;
             return a.name.localeCompare(b.name);
         });
 
-        // Set judul hasil berdasarkan kategori
-        let titleText = '';
+        updateResultsDisplay(); // Panggil fungsi terpisah untuk menampilkan hasil
+    }
+
+    // Fungsi untuk memperbarui tampilan hasil (dipanggil saat sorting selesai atau bahasa berubah)
+    function updateResultsDisplay() {
+        let titleKey = '';
         switch (currentCategory) {
             case 'general':
-                titleText = 'Member favoritmu adalah:';
+                titleKey = 'resultsGeneral';
                 break;
             case 'talent':
-                titleText = 'Member paling berbakat versi kamu:';
+                titleKey = 'resultsTalent';
                 break;
             case 'visual':
-                titleText = 'Visual terbaik versi kamu:';
+                titleKey = 'resultsVisual';
                 break;
             case 'comedian':
-                titleText = 'Member terlucu versi kamu:';
+                titleKey = 'resultsComedian';
                 break;
             default:
-                titleText = 'Hasil Sorting Rain Tree:';
+                titleKey = 'resultsGeneral'; // Fallback
                 break;
         }
-        resultsTitle.textContent = titleText;
+        resultsTitle.textContent = translations[currentLang][titleKey];
 
         resultsList.innerHTML = '';
         currentList.forEach((member, index) => {
@@ -225,11 +377,12 @@ document.addEventListener('DOMContentLoaded', () => {
             resultItem.innerHTML = `
                 <span>${index + 1}.</span>
                 <img src="images/${member.image}" alt="${member.name}">
-                <p>${member.name} (W:${member.wins} D:${member.draws} L:${member.losses})</p>
-            `;
+                <p>${translations[currentLang][member.name] || member.name} (W:${member.wins} D:${member.draws} L:${member.losses})</p>
+            `; // Terjemahkan nama anggota di sini
             resultsList.appendChild(resultItem);
         });
     }
+
 
     // --- Event Listeners ---
     categoryButtons.forEach(button => {
@@ -243,21 +396,19 @@ document.addEventListener('DOMContentLoaded', () => {
     drawButton.addEventListener('click', () => handleChoice('draw'));
 
     downloadResultsButton.addEventListener('click', () => {
-        // Menggunakan html2canvas untuk menangkap tampilan hasil
         html2canvas(resultsSection, {
-            useCORS: true, // Penting jika gambar dimuat dari domain yang berbeda (walaupun di sini sama)
-            scale: 2, // Meningkatkan kualitas gambar
-            backgroundColor: '#ffffff' // Set background putih untuk bagian yang kosong
+            useCORS: true,
+            scale: 2,
+            backgroundColor: '#ffffff'
         }).then(canvas => {
             const link = document.createElement('a');
-            link.download = 'rain_tree_sorter_results.png';
+            link.download = `rain_tree_sorter_results_${currentLang}.png`; // Nama file sesuai bahasa
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
     });
 
     shareResultsButton.addEventListener('click', () => {
-        // Fungsi share di browser (Web Share API)
         if (navigator.share) {
             html2canvas(resultsSection, {
                 useCORS: true,
@@ -266,15 +417,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }).then(canvas => {
                 canvas.toBlob(function(blob) {
                     const filesArray = [
-                        new File([blob], 'rain_tree_sorter_results.png', {
+                        new File([blob], `rain_tree_sorter_results_${currentLang}.png`, {
                             type: 'image/png',
                             lastModified: new Date().getTime()
                         })
                     ];
+                    // Teks berbagi juga akan disesuaikan bahasanya
+                    const shareText = `Lihat hasil sorting Rain Tree saya untuk kategori ${translations[currentLang][`category${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1)}`]}!`;
                     navigator.share({
                         files: filesArray,
-                        title: 'Hasil Sorting Rain Tree',
-                        text: `Lihat hasil sorting Rain Tree saya untuk kategori ${currentCategory}!`,
+                        title: translations[currentLang]['pageTitle'],
+                        text: shareText,
                         url: window.location.href,
                     }).then(() => console.log('Share successful'))
                     .catch((error) => console.log('Sharing failed', error));
@@ -288,10 +441,20 @@ document.addEventListener('DOMContentLoaded', () => {
     restartSorterButton.addEventListener('click', () => {
         resultsSection.classList.add('hidden');
         categorySelectionSection.classList.remove('hidden');
-        resultsList.innerHTML = ''; // Bersihkan hasil sebelumnya
-        comparedPairs.clear(); // Bersihkan daftar pasangan yang sudah dibandingkan
+        resultsList.innerHTML = '';
+        comparedPairs.clear();
+        // Setel ulang teks progress bar ke bahasa saat ini
+        updateProgressBar();
     });
 
-    // Inisialisasi awal
-    updateProgressBar(); // Setel progress bar ke 0% saat awal dimuat
+    // Event listener untuk tombol bahasa
+    langButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            setLanguage(e.target.dataset.lang);
+        });
+    });
+
+    // Inisialisasi: setel bahasa default saat halaman dimuat
+    setLanguage('id'); // Mulai dengan Bahasa Indonesia
+    updateProgressBar();
 });
