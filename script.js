@@ -42,13 +42,29 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsComedian: 'Member terlucu versi kamu:',
             senbatsuTitle: 'Buat Formasi Senbatsu',
             senbatsuSizeLabel: 'Jumlah Member dalam Formasi:',
-            // senbatsuSummaryTitle: 'Formasi Pilihanmu:', // Dihapus
             resetSenbatsuButton: 'Reset Formasi',
             alertMaxMembers: 'Jumlah member formasi sudah penuh ({maxMembers} member).',
             alertMinMembers: 'Pilih setidaknya satu member.',
             selectMemberPrompt: 'Pilih Member',
             noMemberSelected: 'Kosongkan Slot',
-            emptySlotText: 'Slot Kosong', // NEW: Teks untuk slot yang belum terisi
+            emptySlotText: 'Slot Kosong',
+
+            // --- Terjemahan untuk Matchmaker ---
+            pageTitleMatchmaker: 'Ramalan Cinta RT',
+            mainTitleMatchmaker: 'Ramalan Cinta RT',
+            matchmakerTitle: 'Temukan Takdir Cintamu!',
+            yourNameLabel: 'Nama Kamu:',
+            memberSelectLabel: 'Pilih Member Rain Tree:',
+            calculateMatchButton: 'Hitung Kecocokan Takdir!',
+            resultCardTitle: 'Hasil Ramalan Cintamu',
+            tryAgainButton: 'Coba Lagi',
+            // Kalimat dramatis
+            phraseLowLow: 'Jalan kalian masih terjal, butuh perjuangan ekstra!',
+            phraseLow: 'Mungkin perlu sedikit bumbu takdir lagi...',
+            phraseMedium: 'Bisa jadi! Vibes kalian lumayan nyambung nih!',
+            phraseHigh: 'Pintu takdir terbuka lebar untuk kalian!',
+            phraseVeryHigh: 'Cinta sejati versi Rain Tree!',
+
             // Terjemahan nama anggota (Romaji untuk ID)
             'Ayase Kotori': 'Ayase Kotori',
             'Endo Rino': 'Endo Rino',
@@ -88,13 +104,29 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsComedian: 'Your funniest member:',
             senbatsuTitle: 'Create Senbatsu Formation',
             senbatsuSizeLabel: 'Number of Members in Formation:',
-            // senbatsuSummaryTitle: 'Your Chosen Formation:', // Dihapus
             resetSenbatsuButton: 'Reset Formation',
             alertMaxMembers: 'Maximum formation members reached ({maxMembers} members).',
             alertMinMembers: 'Please select at least one member.',
             selectMemberPrompt: 'Select Member',
             noMemberSelected: 'Clear Slot',
-            emptySlotText: 'Empty Slot', // NEW
+            emptySlotText: 'Empty Slot',
+
+            // --- Terjemahan untuk Matchmaker ---
+            pageTitleMatchmaker: 'Rain Tree Love Fortune',
+            mainTitleMatchmaker: 'Rain Tree Love Fortune',
+            matchmakerTitle: 'Find Your Love Destiny!',
+            yourNameLabel: 'Your Name:',
+            memberSelectLabel: 'Select Rain Tree Member:',
+            calculateMatchButton: 'Calculate Destiny Match!',
+            resultCardTitle: 'Your Love Fortune Result',
+            tryAgainButton: 'Try Again',
+            // Kalimat dramatis
+            phraseLowLow: 'Your path is still rough, extra effort needed!',
+            phraseLow: 'Maybe a little more destiny spice is needed...',
+            phraseMedium: 'It could be! Your vibes are quite in sync!',
+            phraseHigh: 'The gates of destiny are wide open for you!',
+            phraseVeryHigh: 'True love, Rain Tree version!',
+
             // Terjemahan nama anggota (Romaji untuk EN)
             'Ayase Kotori': 'Ayase Kotori',
             'Endo Rino': 'Endo Rino',
@@ -115,10 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
             'Asamiya Hinata': 'Asamiya Hinata',
         },
         jp: {
-            pageTitle: 'Rain Tree アイドルソーター',
-            mainTitle: 'Rain Tree アイドルソーター',
-            chooseCategory: 'ソーターカテゴリを選択してください:',
-            categoryGeneral: '総合',
+            pageTitle: 'Rain Tree アイドルソート', // KOREKSI: "ソート" bukan "ソーター"
+            mainTitle: 'Rain Tree アイドルソート', // KOREKSI
+            chooseCategory: 'ソーターカテゴリを選択してください:', // Untuk sementara tetap ini, karena "ソート" sudah menjadi judul utama
+            categoryGeneral: 'ソート', // KOREKSI
             categoryVisual: 'ビジュアル',
             categoryTalent: '才能',
             categoryComedian: 'おもしろい',
@@ -134,13 +166,29 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsComedian: 'あなたの最も面白いメンバー:',
             senbatsuTitle: '選抜フォーメーションを作成',
             senbatsuSizeLabel: 'フォーメーション人数:',
-            // senbatsuSummaryTitle: 'あなたの選んだフォーメーション:', // Dihapus
             resetSenbatsuButton: 'フォーメーションをリセット',
             alertMaxMembers: 'フォーメーションの最大人数に達しました（{maxMembers}人）。',
             alertMinMembers: '少なくとも一人メンバーを選択してください。',
             selectMemberPrompt: 'メンバーを選択',
             noMemberSelected: 'スロットをクリア',
-            emptySlotText: '空スロット', // NEW
+            emptySlotText: '空スロット',
+
+            // --- Terjemahan untuk Matchmaker ---
+            pageTitleMatchmaker: 'Rain Tree 恋愛占い',
+            mainTitleMatchmaker: 'Rain Tree 恋愛占い',
+            matchmakerTitle: 'あなたの運命の愛を見つけよう！',
+            yourNameLabel: 'あなたの名前:',
+            memberSelectLabel: 'Rain Treeメンバーを選択:',
+            calculateMatchButton: '運命の相性を計算！',
+            resultCardTitle: 'あなたの恋愛占い結果',
+            tryAgainButton: 'もう一度試す',
+            // Kalimat dramatis
+            phraseLowLow: '二人の道はまだ険しい、さらなる努力が必要！',
+            phraseLow: 'もう少し運命のスパイスが必要かも…',
+            phraseMedium: '可能性あり！あなたたちの雰囲気はかなり合うね！',
+            phraseHigh: '運命の扉は君たちに大きく開かれている！',
+            phraseVeryHigh: 'これぞまさにRain Tree版の真実の愛！',
+
             // Terjemahan nama anggota dalam Kanji/Kana yang benar
             'Asamiya Hinata': '朝宮日向',
             'Ayase Kotori': '綾瀬ことり',
@@ -204,6 +252,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         element.textContent = translations[currentLang]['pageTitle'];
                     } else if (window.location.pathname.includes('senbatsu.html')) {
                         element.textContent = translations[currentLang]['pageTitle'].replace('Idola Sorter', 'Formasi Senbatsu'); // Sesuaikan judul halaman senbatsu
+                    } else if (window.location.pathname.includes('matchmaker.html')) {
+                        element.textContent = translations[currentLang]['pageTitleMatchmaker'];
                     } else {
                         element.textContent = translations[currentLang][key]; // Untuk halaman lain (misal index.html)
                     }
@@ -238,19 +288,39 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (window.location.pathname.includes('senbatsu.html')) {
             const senbatsuFormationGrid = document.getElementById('senbatsu-formation-grid');
             if (senbatsuFormationGrid) { // Pastikan elemen ada sebelum mencoba mengakses
-                // Re-render formation grid to update names and empty slot texts
                 generateFormationGrid(parseInt(document.getElementById('senbatsu-size').value));
             }
 
-            // Juga perbarui teks pop-up
             const popupTitle = document.querySelector('.member-selector-popup h3');
             if (popupTitle) {
                 popupTitle.textContent = translations[currentLang]['selectMemberPrompt'];
             }
-            // Perbarui teks opsi kosongkan slot di pop-up
             const clearOptionInPopup = document.querySelector('.member-selector-popup .member-item.clear-slot-option span');
             if (clearOptionInPopup) {
                 clearOptionInPopup.textContent = translations[currentLang]['noMemberSelected'];
+            }
+        }
+        // Logika spesifik untuk halaman matchmaker (jika elemen-elemennya ada di DOM)
+        else if (window.location.pathname.includes('matchmaker.html')) {
+            const memberSelect = document.getElementById('member-select');
+            if (memberSelect) {
+                populateMemberSelect(); // Re-populate dropdown with translated names
+            }
+            // If result card is active, update its content as well
+            const matchResultCard = document.getElementById('match-result-card');
+            if (matchResultCard && matchResultCard.classList.contains('active')) {
+                // Re-calculate and display result with new language
+                // We need to store the last calculated data to re-display
+                const lastYourName = document.getElementById('display-your-name')?.textContent;
+                const lastMemberNameRomaji = document.getElementById('display-member-name')?.dataset.romajiName; // Get original Romaji name
+                const lastMatchPercentage = parseInt(document.getElementById('display-match-hearts')?.dataset.percentage); // Get stored percentage
+
+                if (lastYourName && lastMemberNameRomaji !== undefined && !isNaN(lastMatchPercentage)) {
+                    const selectedMember = members.find(m => m.name === lastMemberNameRomaji);
+                    if (selectedMember) {
+                         displayMatchResult(lastYourName, selectedMember, lastMatchPercentage);
+                    }
+                }
             }
         }
     }
@@ -262,9 +332,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let comparisonsMade = 0;
         let totalComparisons = 0;
         const comparedPairs = new Set();
-        let currentCategory = ''; // Pindahkan deklarasi ke lingkup sorter
+        let currentCategory = '';
 
-        // Dapatkan elemen DOM sorter
         const categorySelectionSection = document.getElementById('category-selection');
         const sorterSection = document.getElementById('sorter-section');
         const resultsSection = document.getElementById('results-section');
@@ -273,10 +342,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const progressText = document.getElementById('progress-text');
         const idol1Card = document.getElementById('idol-1');
         const idol2Card = document.getElementById('idol-2');
-        const idol1Img = idol1Card?.querySelector('img'); // Gunakan optional chaining
-        const idol1Name = idol1Card?.querySelector('.idol-name'); // Gunakan optional chaining
-        const idol2Img = idol2Card?.querySelector('img'); // Gunakan optional chaining
-        const idol2Name = idol2Card?.querySelector('.idol-name'); // Gunakan optional chaining
+        const idol1Img = idol1Card?.querySelector('img');
+        const idol1Name = idol1Card?.querySelector('.idol-name');
+        const idol2Img = idol2Card?.querySelector('img');
+        const idol2Name = idol2Card?.querySelector('.idol-name');
         const drawButton = document.getElementById('draw-button');
         const resultsTitle = document.getElementById('results-title');
         const resultsList = document.getElementById('results-list');
@@ -284,10 +353,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const shareResultsButton = document.getElementById('share-results');
         const restartSorterButton = document.getElementById('restart-sorter');
 
-        // Pastikan semua elemen penting ditemukan sebelum menambahkan event listener
         if (!categorySelectionSection || !sorterSection || !resultsSection || categoryButtons.length === 0 || !idol1Card || !idol2Card || !idol1Img || !idol1Name || !idol2Img || !idol2Name || !drawButton || !resultsTitle || !resultsList || !downloadResultsButton || !shareResultsButton || !restartSorterButton) {
             console.error("ERROR: One or more critical Sorter DOM elements not found. Sorter script might not function correctly.");
-            // Jangan `return` di sini, biarkan script mencoba berjalan, tapi perhatikan error di konsol
         }
 
         function initializeSorter(category) {
@@ -366,8 +433,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function handleChoice(winnerName) {
-            const idol1 = currentList.find(m => m.name === idol1Card?.dataset.name); // Optional chaining
-            const idol2 = currentList.find(m => m.name === idol2Card?.dataset.name); // Optional chaining
+            const idol1 = currentList.find(m => m.name === idol1Card?.dataset.name);
+            const idol2 = currentList.find(m => m.name === idol2Card?.dataset.name);
             if (!idol1 || !idol2) {
                 console.error('Idol not found for comparison in handleChoice. Skipping...');
                 return;
@@ -493,56 +560,44 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Sorter restarted.");
         });
 
-        // Initialize sorter specific language settings
-        setLanguage('id'); // Default language for sorter page
+        setLanguage('id');
         console.log("Sorter page script fully executed.");
     }
 
     // --- Logic for Senbatsu Page (`senbatsu.html`) ---
     else if (window.location.pathname.includes('senbatsu.html')) {
         console.log("Loading Senbatsu Page script...");
-        let senbatsuFormation = []; // Akan menyimpan objek member di setiap slot, atau null jika kosong
+        let senbatsuFormation = [];
         let maxSenbatsuMembers;
-        let currentEditingSlotIndex = null; // Menyimpan index slot yang sedang diedit melalui pop-up
+        let currentEditingSlotIndex = null;
 
-        // Dapatkan elemen DOM senbatsu
         const senbatsuSizeInput = document.getElementById('senbatsu-size');
         const senbatsuFormationGrid = document.getElementById('senbatsu-formation-grid');
-        // const senbatsuSummary = document.querySelector('.senbatsu-summary'); // Dihapus
-        // const selectedSenbatsuList = document.getElementById('selected-senbatsu-list'); // Dihapus
         const resetSenbatsuButton = document.getElementById('reset-senbatsu');
         const downloadSenbatsuButton = document.getElementById('download-senbatsu');
 
-        // Pop-up elements
         const memberSelectorPopupOverlay = document.getElementById('member-selector-popup-overlay');
         const popupCloseButton = memberSelectorPopupOverlay?.querySelector('.popup-close-button');
         const memberListInPopup = memberSelectorPopupOverlay?.querySelector('.member-list');
         const popupTitle = memberSelectorPopupOverlay?.querySelector('h3');
 
 
-        // Pastikan semua elemen penting ditemukan sebelum menambahkan event listener
-        // Perbarui pengecekan ini karena elemen summary/list sudah dihapus
         if (!senbatsuSizeInput || !senbatsuFormationGrid || !resetSenbatsuButton || !downloadSenbatsuButton || !memberSelectorPopupOverlay || !popupCloseButton || !memberListInPopup || !popupTitle) {
             console.error("ERROR: One or more critical Senbatsu DOM elements not found. Senbatsu script might not function correctly.");
-            // Jangan `return` di sini, biarkan script mencoba berjalan, tapi perhatikan error di konsol
         } else {
-             // Set initial maxSenbatsuMembers from input, hanya jika input ditemukan
             maxSenbatsuMembers = parseInt(senbatsuSizeInput.value);
-            // Inisialisasi formasi dengan slot kosong
             senbatsuFormation = Array(maxSenbatsuMembers).fill(null);
         }
 
         function generateFormationGrid(size) {
             if (!senbatsuFormationGrid) return;
-            senbatsuFormationGrid.innerHTML = ''; // Bersihkan grid sebelumnya
+            senbatsuFormationGrid.innerHTML = '';
 
             if (size <= 0) {
                 senbatsuFormation = [];
-                // updateSelectedSenbatsuDisplay(); // Dihapus
                 return;
             }
 
-            // Pastikan senbatsuFormation memiliki ukuran yang benar dan mempertahankan member yang sudah ada
             const newFormation = Array(size).fill(null);
             for(let i=0; i < Math.min(senbatsuFormation.length, size); i++) {
                 newFormation[i] = senbatsuFormation[i];
@@ -552,7 +607,7 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let i = 0; i < size; i++) {
                 const slotDiv = document.createElement('div');
                 slotDiv.classList.add('formation-slot');
-                slotDiv.dataset.index = i; // Simpan index slot
+                slotDiv.dataset.index = i;
 
                 const memberInSlot = senbatsuFormation[i];
 
@@ -568,119 +623,86 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 slotDiv.addEventListener('click', () => {
-                    currentEditingSlotIndex = i; // Simpan index slot yang sedang diklik
+                    currentEditingSlotIndex = i;
                     showMemberSelectorPopup();
                 });
                 senbatsuFormationGrid.appendChild(slotDiv);
             }
             console.log("Formation grid generated with size:", size);
-            // updateSelectedSenbatsuDisplay(); // Dihapus
         }
 
         function showMemberSelectorPopup() {
             if (!memberSelectorPopupOverlay || !memberListInPopup || !popupTitle) return;
 
-            // Perbarui judul pop-up
             popupTitle.textContent = translations[currentLang]['selectMemberPrompt'];
 
-            memberListInPopup.innerHTML = ''; // Bersihkan daftar sebelumnya
+            memberListInPopup.innerHTML = '';
 
-            // Opsi untuk mengosongkan slot
             const clearOption = document.createElement('div');
             clearOption.classList.add('member-item', 'clear-slot-option');
-            clearOption.innerHTML = `<img src="images/placeholder_clear.png" alt="Clear Slot"> <span>${translations[currentLang]['noMemberSelected']}</span>`; // Tambahkan gambar placeholder
+            // Pastikan Anda memiliki images/placeholder_clear.png atau hapus img tag ini jika tidak ada
+            clearOption.innerHTML = `<img src="images/placeholder_clear.png" alt="Clear Slot"> <span>${translations[currentLang]['noMemberSelected']}</span>`;
             clearOption.addEventListener('click', () => {
                 if (currentEditingSlotIndex !== null) {
                     senbatsuFormation[currentEditingSlotIndex] = null;
-                    generateFormationGrid(maxSenbatsuMembers); // Ini akan me-render ulang kotak dengan teks default "Slot Kosong"
+                    generateFormationGrid(maxSenbatsuMembers);
                     hideMemberSelectorPopup();
                 }
             });
             memberListInPopup.appendChild(clearOption);
 
 
-            // Tambahkan semua member ke pop-up
             members.forEach(member => {
                 const item = document.createElement('div');
                 item.classList.add('member-item');
                 item.dataset.name = member.name;
 
-                // Tandai member yang sudah terpilih di formasi (kecuali di slot yang sedang diedit)
                 const isSelected = senbatsuFormation.some((selectedMember, index) =>
                     selectedMember && selectedMember.name === member.name && index !== currentEditingSlotIndex
                 );
                 if (isSelected) {
                     item.classList.add('selected');
-                    item.style.pointerEvents = 'none'; // Nonaktifkan klik untuk member yang sudah terpilih di slot lain
+                    item.style.pointerEvents = 'none';
                     item.style.opacity = '0.6';
                 }
 
                 item.innerHTML = `<img src="images/${member.image}" alt="${member.name}"> <span>${translations[currentLang][member.name] || member.name}</span>`;
 
                 item.addEventListener('click', () => {
-                    if (!isSelected && currentEditingSlotIndex !== null) { // Pastikan tidak memilih member yang sudah ada
-                        senbatsuFormation[currentEditingSlotIndex] = member; // Isi slot dengan member yang dipilih
-                        generateFormationGrid(maxSenbatsuMembers); // Regenerate grid untuk update
+                    if (!isSelected && currentEditingSlotIndex !== null) {
+                        senbatsuFormation[currentEditingSlotIndex] = member;
+                        generateFormationGrid(maxSenbatsuMembers);
                         hideMemberSelectorPopup();
                     }
                 });
                 memberListInPopup.appendChild(item);
             });
 
-            memberSelectorPopupOverlay.classList.add('active'); // Tampilkan pop-up
+            memberSelectorPopupOverlay.classList.add('active');
             console.log("Member selector popup shown.");
         }
 
         function hideMemberSelectorPopup() {
             if (memberSelectorPopupOverlay) {
-                memberSelectorPopupOverlay.classList.remove('active'); // Sembunyikan pop-up
-                currentEditingSlotIndex = null; // Reset index slot yang diedit
+                memberSelectorPopupOverlay.classList.remove('active');
+                currentEditingSlotIndex = null;
                 console.log("Member selector popup hidden.");
             }
         }
 
-        // Hapus fungsi updateSelectedSenbatsuDisplay() karena ringkasan dihapus
-        /*
-        function updateSelectedSenbatsuDisplay() {
-            if (!selectedSenbatsuList || !senbatsuSummary) return;
-
-            selectedSenbatsuList.innerHTML = '';
-            const filledMembers = senbatsuFormation.filter(m => m !== null);
-
-            if (filledMembers.length > 0) {
-                senbatsuSummary.classList.remove('hidden');
-                senbatsuFormation.forEach((member, index) => {
-                    if (member) {
-                        const selectedItem = document.createElement('div');
-                        selectedItem.classList.add('selected-member-item');
-                        selectedItem.innerHTML = `
-                            <img src="images/${member.image}" alt="${member.name}">
-                            ${translations[currentLang][member.name] || member.name}
-                        `;
-                        selectedSenbatsuList.appendChild(selectedItem);
-                    }
-                });
-            } else {
-                senbatsuSummary.classList.add('hidden');
-            }
-            console.log("Selected senbatsu summary updated. Filled slots:", filledMembers.length);
-        }
-        */
-
         function resetSenbatsuFormation() {
-            senbatsuFormation = Array(maxSenbatsuMembers).fill(null); // Kosongkan semua slot
-            generateFormationGrid(maxSenbatsuMembers); // Regenerasi grid, yang akan memicu update lainnya
+            senbatsuFormation = Array(maxSenbatsuMembers).fill(null);
+            generateFormationGrid(maxSenbatsuMembers);
             console.log("Senbatsu formation reset.");
         }
 
-        // --- Senbatsu Event Listeners ---
         senbatsuSizeInput?.addEventListener('change', (e) => {
             const newSize = parseInt(e.target.value);
             if (!isNaN(newSize) && newSize >= 1 && newSize <= members.length) {
                 maxSenbatsuMembers = newSize;
-                generateFormationGrid(maxSenbatsuMembers); // Regenerasi grid dengan ukuran baru
+                generateFormationGrid(maxSenbatsuMembers);
             } else {
-                e.target.value = maxSenbatsuMembers; // Reset ke nilai sebelumnya jika tidak valid
+                e.target.value = maxSenbatsuMembers;
                 alert(`Jumlah member harus antara 1 dan ${members.length}.`);
             }
             console.log("Senbatsu size changed to:", maxSenbatsuMembers);
@@ -690,16 +712,15 @@ document.addEventListener('DOMContentLoaded', () => {
         downloadSenbatsuButton?.addEventListener('click', () => {
             if (senbatsuFormationGrid) {
                 const tempContainer = document.createElement('div');
-                tempContainer.style.display = 'inline-block'; // Agar tidak mengambil lebar penuh
+                tempContainer.style.display = 'inline-block';
                 tempContainer.style.backgroundColor = '#ffffff';
                 tempContainer.style.padding = '20px';
                 tempContainer.style.borderRadius = '8px';
 
-                // Buat clone dari grid dan pastikan nama member terlihat di dalamnya
                 const gridClone = senbatsuFormationGrid.cloneNode(true);
                 gridClone.querySelectorAll('.formation-slot').forEach((originalSlot, index) => {
                     const clonedSlot = gridClone.querySelector(`[data-index="${index}"]`);
-                    const memberInSlot = senbatsuFormation[index]; // Ambil data member dari array asli
+                    const memberInSlot = senbatsuFormation[index];
 
                     if (memberInSlot) {
                         clonedSlot.classList.add('filled');
@@ -708,9 +729,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p class="member-name">${translations[currentLang][memberInSlot.name] || memberInSlot.name}</p>
                         `;
                     } else {
-                        // Untuk slot kosong, pastikan hanya menampilkan teks "Slot Kosong"
                         clonedSlot.innerHTML = `<p class="member-name">${translations[currentLang]['emptySlotText']}</p>`;
-                        clonedSlot.style.border = '2px dashed #b2dfdb'; // Pertahankan border putus-putus
+                        clonedSlot.style.border = '2px dashed #b2dfdb';
                     }
                 });
 
@@ -736,24 +756,167 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         popupCloseButton?.addEventListener('click', hideMemberSelectorPopup);
-        // Sembunyikan pop-up jika mengklik di luar area pop-up
         memberSelectorPopupOverlay?.addEventListener('click', (event) => {
             if (event.target === memberSelectorPopupOverlay) {
                 hideMemberSelectorPopup();
             }
         });
 
-
-        // Initialize senbatsu specific language settings and render grid
-        setLanguage('id'); // Default language for senbatsu page
-        generateFormationGrid(parseInt(senbatsuSizeInput.value)); // Initial render of the grid
+        setLanguage('id');
+        generateFormationGrid(parseInt(senbatsuSizeInput.value));
         console.log("Senbatsu page script fully executed.");
+    }
+
+    // --- Logic for Matchmaker Page (`matchmaker.html`) ---
+    else if (window.location.pathname.includes('matchmaker.html')) {
+        console.log("Loading Matchmaker Page script...");
+
+        // DOM elements for Matchmaker
+        const yourNameInput = document.getElementById('your-name-input');
+        const memberSelect = document.getElementById('member-select');
+        const calculateMatchButton = document.getElementById('calculate-match-button');
+        const matchResultCard = document.getElementById('match-result-card');
+        const displayYourName = document.getElementById('display-your-name');
+        const displayMemberImage = document.getElementById('display-member-image');
+        const displayMemberName = document.getElementById('display-member-name');
+        const displayMatchHearts = document.getElementById('display-match-hearts');
+        const displayMatchPhrase = document.getElementById('display-match-phrase');
+        const downloadMatchResultButton = document.getElementById('download-match-result');
+        const tryAgainButton = document.getElementById('try-again-button');
+
+        if (!yourNameInput || !memberSelect || !calculateMatchButton || !matchResultCard || !displayYourName || !displayMemberImage || !displayMemberName || !displayMatchHearts || !displayMatchPhrase || !downloadMatchResultButton || !tryAgainButton) {
+            console.error("ERROR: One or more critical Matchmaker DOM elements not found. Matchmaker script might not function correctly.");
+            return;
+        }
+
+        function populateMemberSelect() {
+            memberSelect.innerHTML = ''; // Clear existing options
+
+            // Add a default "Select a member" option
+            const defaultOption = document.createElement('option');
+            defaultOption.value = "";
+            defaultOption.textContent = translations[currentLang]['memberSelectLabel']; // Use the label as default text
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            memberSelect.appendChild(defaultOption);
+
+            members.forEach(member => {
+                const option = document.createElement('option');
+                option.value = member.name; // Use Romaji name as value
+                option.textContent = translations[currentLang][member.name] || member.name; // Display translated name
+                memberSelect.appendChild(option);
+            });
+            console.log("Member select dropdown populated.");
+        }
+
+        function generateMatchResult() {
+            const yourName = yourNameInput.value.trim();
+            const selectedMemberRomaji = memberSelect.value; // This is the Romaji name
+            const selectedMember = members.find(m => m.name === selectedMemberRomaji);
+
+            if (!yourName) {
+                alert("Mohon masukkan nama Anda!");
+                return;
+            }
+            if (!selectedMember) {
+                alert("Mohon pilih seorang member Rain Tree!");
+                return;
+            }
+
+            // Generate random percentage
+            const matchPercentage = Math.floor(Math.random() * 101); // 0-100
+
+            displayMatchResult(yourName, selectedMember, matchPercentage);
+            console.log(`Match result generated for ${yourName} and ${selectedMember.name}: ${matchPercentage}%`);
+        }
+
+        function displayMatchResult(yourName, member, percentage) {
+            displayYourName.textContent = yourName;
+            displayMemberImage.src = `images/${member.image}`;
+            displayMemberImage.alt = member.name; // Set alt text for accessibility
+            displayMemberName.textContent = translations[currentLang][member.name] || member.name;
+            displayMemberName.dataset.romajiName = member.name; // Store original name for translation updates
+
+            // Render hearts
+            let heartsHtml = '';
+            const filledHearts = Math.round(percentage / 10); // Each heart is 10%
+            for (let i = 0; i < 10; i++) {
+                if (i < filledHearts) {
+                    heartsHtml += '❤️'; // Filled heart (Unicode)
+                } else {
+                    heartsHtml += '<span class="empty-heart">♡</span>'; // Empty heart (Unicode)
+                }
+            }
+            displayMatchHearts.innerHTML = heartsHtml;
+            displayMatchHearts.dataset.percentage = percentage; // Store percentage for translation updates
+
+            // Determine phrase based on percentage
+            let phraseKey;
+            if (percentage <= 15) {
+                phraseKey = 'phraseLowLow';
+            } else if (percentage <= 35) {
+                phraseKey = 'phraseLow';
+            } else if (percentage <= 65) {
+                phraseKey = 'phraseMedium';
+            } else if (percentage <= 85) {
+                phraseKey = 'phraseHigh';
+            } else { // 86-100
+                phraseKey = 'phraseVeryHigh';
+            }
+            displayMatchPhrase.textContent = translations[currentLang][phraseKey];
+
+            matchResultCard.classList.add('active'); // Show the card
+            console.log("Match result displayed.");
+        }
+
+        function resetMatchmaker() {
+            yourNameInput.value = '';
+            memberSelect.value = ''; // Reset dropdown to default
+            matchResultCard.classList.remove('active'); // Hide the card
+            console.log("Matchmaker reset.");
+        }
+
+        // --- Matchmaker Event Listeners ---
+        calculateMatchButton.addEventListener('click', generateMatchResult);
+        tryAgainButton.addEventListener('click', resetMatchmaker);
+
+        downloadMatchResultButton.addEventListener('click', () => {
+            if (matchResultCard) {
+                // Clone the card to remove the action buttons for the screenshot
+                const cardToCapture = matchResultCard.cloneNode(true);
+                cardToCapture.style.position = 'absolute'; // Prevent it from affecting layout
+                cardToCapture.style.top = '-9999px'; // Move it off-screen
+                cardToCapture.style.left = '-9999px';
+                cardToCapture.style.display = 'flex'; // Ensure it's rendered for html2canvas
+                cardToCapture.querySelector('.match-result-actions').remove(); // Remove buttons from clone
+
+                document.body.appendChild(cardToCapture);
+
+                html2canvas(cardToCapture, {
+                    useCORS: true,
+                    scale: 2,
+                    backgroundColor: '#ffffff'
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `rain_tree_love_fortune_${currentLang}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    cardToCapture.remove(); // Remove the clone after capture
+                });
+            } else {
+                console.error("Match result card not found for download.");
+            }
+        });
+
+        // Initialize matchmaker specific language settings and populate dropdown
+        setLanguage('id'); // Default language for matchmaker page
+        populateMemberSelect(); // Initial population of dropdown
+        console.log("Matchmaker page script fully executed.");
     }
 
     // Set initial language for any common elements (like language buttons themselves)
     // This will also trigger the page-specific setLanguage logic due to the if/else if blocks
-    // Jika tidak di halaman sorter atau senbatsu (misal index.html), setLanguage akan tetap jalan untuk elemen umum.
-    if (!window.location.pathname.includes('sorter.html') && !window.location.pathname.includes('senbatsu.html')) {
-        setLanguage('id'); // Ini hanya akan dipanggil jika ini bukan sorter/senbatsu page (misal index.html)
+    if (!window.location.pathname.includes('sorter.html') && !window.location.pathname.includes('senbatsu.html') && !window.location.pathname.includes('matchmaker.html')) {
+        setLanguage('id'); // This will only be called if it's not a sorter/senbatsu/matchmaker page (e.g., index.html)
     }
 });
