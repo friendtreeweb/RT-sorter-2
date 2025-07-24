@@ -1,10 +1,139 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-key="pageTitle">Rain Tree Senbatsu Formation</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Gaya tambahan khusus untuk formasi senbatsu */
+        #senbatsu-formation-grid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px auto;
+            max-width: 600px;
+            padding: 10px;
+            border: 1px dashed #b2dfdb;
+            border-radius: 8px;
+            min-height: 150px; /* Agar ada ruang terlihat */
+            justify-content: center;
+        }
+
+        .formation-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Jarak antar kotak dalam satu baris */
+            margin-bottom: 10px; /* Jarak antar baris */
+        }
+
+        .formation-slot {
+            width: 90px; /* Lebar kotak */
+            height: 90px; /* Tinggi kotak */
+            border: 2px dashed #4db6ac; /* Border putus-putus untuk slot kosong */
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            background-color: #f0fdfc;
+            transition: all 0.2s ease;
+            position: relative; /* Untuk penempatan dropdown */
+            overflow: hidden; /* Pastikan gambar tidak keluar */
+        }
+
+        .formation-slot:hover {
+            border-color: #26a69a;
+            background-color: #e0f2f1;
+        }
+
+        .formation-slot.filled {
+            border: 2px solid #26a69a; /* Border solid saat terisi */
+            background-color: #e0f2f1;
+            cursor: default;
+        }
+
+        .formation-slot.filled img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #b2dfdb;
+        }
+
+        .formation-slot.filled .member-name {
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #333;
+            margin-top: 5px;
+            word-break: break-word;
+        }
+
+        /* Dropdown untuk pilihan member */
+        .member-dropdown {
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 10;
+            top: 0; /* Sesuaikan posisi agar muncul di atas slot */
+            left: 0;
+            width: 100%; /* Lebar dropdown sama dengan slot */
+        }
+
+        .member-dropdown-item {
+            padding: 8px 10px;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .member-dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .member-dropdown-item.selected {
+            background-color: #e0f2f1; /* Warna hijau tosca muda untuk yang sudah terpilih */
+            font-weight: bold;
+            color: #00796b;
+        }
+
+        .member-dropdown-item img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        /* Responsive untuk formasi */
+        @media (max-width: 600px) {
+            .formation-slot {
+                width: 70px;
+                height: 70px;
+            }
+            .formation-slot.filled img {
+                width: 60px;
+                height: 60px;
+            }
+            .formation-slot.filled .member-name {
+                font-size: 0.7em;
+            }
+            .formation-row {
+                gap: 8px;
+            }
+            #senbatsu-formation-grid {
+                padding: 5px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -27,18 +156,20 @@
                 <input type="number" id="senbatsu-size" min="1" max="17" value="7">
             </div>
 
-            <div class="senbatsu-members-grid">
+            <div id="senbatsu-formation-grid">
                 </div>
 
-            <div class="senbatsu-summary hidden">
+            <div class="senbatsu-summary">
                 <h3 data-key="senbatsuSummaryTitle">Formasi Pilihanmu:</h3>
                 <div id="selected-senbatsu-list">
                     </div>
+                <button id="download-senbatsu" data-key="downloadResults">Unduh Hasil (Gambar)</button>
                 <button id="reset-senbatsu" data-key="resetSenbatsuButton">Reset Formasi</button>
             </div>
         </div>
     </div>
 
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 </html>
