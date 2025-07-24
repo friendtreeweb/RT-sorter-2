@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alertMinMembers: 'Pilih setidaknya satu member.',
             selectMemberPrompt: 'Pilih Member', // Tambahan untuk senbatsu
             noMemberSelected: 'Kosongkan Slot', // Tambahan untuk senbatsu
-            noMemberSelectedInList: 'Tidak ada member yang dipilih.', // NEW
+            noMemberSelectedInList: 'Tidak ada member yang dipilih.', // OLD: Ini bisa dihapus jika tidak lagi dipakai
             // Terjemahan nama anggota (Romaji untuk ID)
             'Ayase Kotori': 'Ayase Kotori',
             'Endo Rino': 'Endo Rino',
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alertMinMembers: 'Please select at least one member.',
             selectMemberPrompt: 'Select Member',
             noMemberSelected: 'Clear Slot',
-            noMemberSelectedInList: 'No members selected.', // NEW
+            noMemberSelectedInList: 'No members selected.', // OLD: Ini bisa dihapus jika tidak lagi dipakai
             // Terjemahan nama anggota (Romaji untuk EN)
             'Ayase Kotori': 'Ayase Kotori',
             'Endo Rino': 'Endo Rino',
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsGeneral: 'あなたのお気に入りのメンバーは:',
             resultsTalent: 'あなたの最も才能のあるメンバー:',
             resultsVisual: 'あなたの最高のビジュアルメンバー:',
-            resultsComedian: 'あなたの最も面白いメンバー:',
+            resultsComedian: 'あなたのおもしろいメンバー:',
             senbatsuTitle: '選抜フォーメーションを作成',
             senbatsuSizeLabel: 'フォーメーション人数:',
             senbatsuSummaryTitle: 'あなたの選んだフォーメーション:',
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alertMinMembers: '少なくとも一人メンバーを選択してください。',
             selectMemberPrompt: 'メンバーを選択',
             noMemberSelected: 'スロットをクリア',
-            noMemberSelectedInList: 'メンバーが選択されていません。', // NEW
+            noMemberSelectedInList: 'メンバーが選択されていません。', // OLD: Ini bisa dihapus jika tidak lagi dipakai
             // Terjemahan nama anggota dalam Kanji/Kana yang benar
             'Asamiya Hinata': '朝宮日向',
             'Ayase Kotori': '綾瀬ことり',
@@ -253,11 +253,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (clearOptionInPopup) {
                 clearOptionInPopup.textContent = translations[currentLang]['noMemberSelected'];
             }
-            // Perbarui teks di bawah grid jika tidak ada member terpilih
+            // NEW: Hapus bagian ini jika tidak lagi membutuhkan 'membersBelowGrid'
+            /*
             const noMemberSelectedInListText = document.querySelector('#members-below-grid p[data-key="noMemberSelectedInList"]');
             if (noMemberSelectedInListText) {
                 noMemberSelectedInListText.textContent = translations[currentLang]['noMemberSelectedInList'];
             }
+            */
         }
     }
 
@@ -518,7 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedSenbatsuList = document.getElementById('selected-senbatsu-list');
         const resetSenbatsuButton = document.getElementById('reset-senbatsu');
         const downloadSenbatsuButton = document.getElementById('download-senbatsu');
-        const membersBelowGrid = document.getElementById('members-below-grid'); // NEW element
+        // const membersBelowGrid = document.getElementById('members-below-grid'); // OLD: Ini tidak lagi dibutuhkan jika nama ada di dalam kotak
 
         // Pop-up elements
         const memberSelectorPopupOverlay = document.getElementById('member-selector-popup-overlay');
@@ -528,7 +530,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         // Pastikan semua elemen penting ditemukan sebelum menambahkan event listener
-        if (!senbatsuSizeInput || !senbatsuFormationGrid || !senbatsuSummary || !selectedSenbatsuList || !resetSenbatsuButton || !downloadSenbatsuButton || !memberSelectorPopupOverlay || !popupCloseButton || !memberListInPopup || !popupTitle || !membersBelowGrid) {
+        // UPDATE: Hapus 'membersBelowGrid' dari pengecekan ini
+        if (!senbatsuSizeInput || !senbatsuFormationGrid || !senbatsuSummary || !selectedSenbatsuList || !resetSenbatsuButton || !downloadSenbatsuButton || !memberSelectorPopupOverlay || !popupCloseButton || !memberListInPopup || !popupTitle) {
             console.error("ERROR: One or more critical Senbatsu DOM elements not found. Senbatsu script might not function correctly.");
             // Jangan `return` di sini, biarkan script mencoba berjalan, tapi perhatikan error di konsol
         } else {
@@ -544,8 +547,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (size <= 0) {
                 senbatsuFormation = [];
-                updateSelectedSenbatsuDisplay(); // Juga akan mengosongkan list di bawah grid
-                updateMembersBelowGrid(); // Pastikan ini juga di-update
+                updateSelectedSenbatsuDisplay();
+                // updateMembersBelowGrid(); // OLD: Ini tidak lagi dibutuhkan
                 return;
             }
 
@@ -570,6 +573,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p class="member-name">${translations[currentLang][memberInSlot.name] || memberInSlot.name}</p>
                     `;
                 } else {
+                    // Teks ini hanya akan muncul saat slot kosong
                     slotDiv.innerHTML = `<p>${translations[currentLang]['selectMemberPrompt']}</p>`;
                 }
 
@@ -581,7 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             console.log("Formation grid generated with size:", size);
             updateSelectedSenbatsuDisplay(); // Update ringkasan bawah
-            updateMembersBelowGrid(); // NEW: Update daftar di bawah grid
+            // updateMembersBelowGrid(); // OLD: Ini tidak lagi dibutuhkan
         }
 
         function showMemberSelectorPopup() {
@@ -599,7 +603,7 @@ document.addEventListener('DOMContentLoaded', () => {
             clearOption.addEventListener('click', () => {
                 if (currentEditingSlotIndex !== null) {
                     senbatsuFormation[currentEditingSlotIndex] = null;
-                    generateFormationGrid(maxSenbatsuMembers);
+                    generateFormationGrid(maxSenbatsuMembers); // Ini akan me-render ulang kotak dengan teks default "Pilih Member"
                     hideMemberSelectorPopup();
                 }
             });
@@ -672,7 +676,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Selected senbatsu summary updated. Filled slots:", filledMembers.length);
         }
 
-        // NEW: Fungsi untuk memperbarui daftar member di bawah grid
+        // OLD: Fungsi updateMembersBelowGrid() ini dihapus karena tidak lagi dibutuhkan.
+        /*
         function updateMembersBelowGrid() {
             if (!membersBelowGrid) return;
 
@@ -680,7 +685,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const filledMembers = senbatsuFormation.filter(m => m !== null);
 
             if (filledMembers.length > 0) {
-                // Urutkan member berdasarkan index mereka di formasi
                 senbatsuFormation.forEach((member, index) => {
                     if (member) {
                         const memberItem = document.createElement('div');
@@ -697,13 +701,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             console.log("Members below grid updated.");
         }
-
+        */
 
         function resetSenbatsuFormation() {
             senbatsuFormation = Array(maxSenbatsuMembers).fill(null); // Kosongkan semua slot
             generateFormationGrid(maxSenbatsuMembers); // Regenerasi grid, yang akan memicu update lainnya
-            // updateSelectedSenbatsuDisplay(); // Ini dipanggil oleh generateFormationGrid
-            // updateMembersBelowGrid(); // Ini juga dipanggil oleh generateFormationGrid
             console.log("Senbatsu formation reset.");
         }
 
@@ -723,30 +725,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         downloadSenbatsuButton?.addEventListener('click', () => {
             if (senbatsuFormationGrid) {
-                // Buat elemen sementara yang akan di-capture untuk menyatukan grid dan daftar di bawahnya
+                // Buat elemen sementara yang akan di-capture
                 const tempContainer = document.createElement('div');
                 tempContainer.style.display = 'flex';
                 tempContainer.style.flexDirection = 'column';
                 tempContainer.style.alignItems = 'center';
                 tempContainer.style.backgroundColor = '#ffffff'; // Pastikan background putih
                 tempContainer.style.padding = '20px'; // Beri sedikit padding
+                tempContainer.style.borderRadius = '8px'; // Sesuai dengan border grid
 
                 const gridClone = senbatsuFormationGrid.cloneNode(true);
-                const listBelowGridClone = membersBelowGrid.cloneNode(true);
 
-                // Hapus event listener dari clone agar tidak ada interaksi saat di-capture
-                gridClone.querySelectorAll('.formation-slot').forEach(slot => {
-                    slot.replaceWith(slot.cloneNode(true)); // Kloning ulang node untuk hapus event listeners
-                });
-                // Pastikan pesan "Pilih Member" diganti menjadi kosong jika tidak ada yang dipilih di slot kosong
+                // Bersihkan teks "Pilih Member" di slot kosong pada klon untuk capture
                 gridClone.querySelectorAll('.formation-slot:not(.filled)').forEach(slot => {
                     slot.innerHTML = ''; // Kosongkan teks "Pilih Member"
-                    slot.style.border = '1px solid #ddd'; // Beri border lebih solid
+                    slot.style.border = '2px dashed #b2dfdb'; // Pertahankan border asli
                 });
 
-
                 tempContainer.appendChild(gridClone);
-                tempContainer.appendChild(listBelowGridClone);
 
                 document.body.appendChild(tempContainer); // Tambahkan ke DOM sementara untuk capture
 
