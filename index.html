@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="id"> <head>
+<html lang="id">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-key="pageTitle">Rain Tree Idola Sorter</title> <link rel="stylesheet" href="style.css">
+    <title data-key="pageTitle">Rain Tree Idola Sorter</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -12,39 +14,75 @@
             <button class="lang-button" data-lang="jp">JP</button>
         </div>
 
-        <h1 data-key="mainTitle">Rain Tree Idola Sorter</h1> <div id="category-selection" class="section">
-            <h2 data-key="chooseCategory">Pilih Kategori Sorter:</h2> <div class="category-buttons">
-                <button data-category="general" data-key="categoryGeneral">Umum</button>
-                <button data-category="visual" data-key="categoryVisual">Visual</button>
-                <button data-category="talent" data-key="categoryTalent">Bakat</button>
-                <button data-category="comedian" data-key="categoryComedian">Pelawak</button>
+        <h1 data-key="mainTitle">Rain Tree Idola Sorter</h1>
+
+        <div class="navigation-menu">
+            <button class="nav-button active" data-target="sorter-flow" data-key="navSorter">Sorter Idola</button>
+            <button class="nav-button" data-target="senbatsu-flow" data-key="navSenbatsu">Formasi Senbatsu</button>
+        </div>
+
+        <div id="sorter-flow" class="flow-section">
+            <div id="category-selection" class="section">
+                <h2 data-key="chooseCategory">Pilih Kategori Sorter:</h2>
+                <div class="category-buttons">
+                    <button data-category="general" data-key="categoryGeneral">Umum</button>
+                    <button data-category="visual" data-key="categoryVisual">Visual</button>
+                    <button data-category="talent" data-key="categoryTalent">Bakat</button>
+                    <button data-category="comedian" data-category="comedian">Pelawak</button>
+                </div>
+            </div>
+
+            <div id="sorter-section" class="section hidden">
+                <div class="progress-bar-container">
+                    <div id="progress-bar"></div>
+                </div>
+                <p id="progress-text" data-key="progressText">Memuat...</p>
+
+                <div class="battle-container">
+                    <div class="idol-card" id="idol-1">
+                        <img src="" alt="Idola 1">
+                        <p class="idol-name"></p>
+                    </div>
+                    <div class="vs" data-key="vsText">VS</div>
+                    <div class="idol-card" id="idol-2">
+                        <img src="" alt="Idola 2">
+                        <p class="idol-name"></p>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button id="draw-button" data-key="drawButton">Seri (Draw)</button>
+                </div>
+            </div>
+
+            <div id="results-section" class="section hidden">
+                <h2 id="results-title"></h2>
+                <div id="results-list"></div>
+                <div class="share-download-options">
+                    <button id="download-results" data-key="downloadResults">Unduh Hasil (Gambar)</button>
+                    <button id="share-results" data-key="shareResults">Bagikan</button>
+                </div>
+                <button id="restart-sorter" data-key="restartButton">Mulai Ulang</button>
             </div>
         </div>
 
-        <div id="sorter-section" class="section hidden">
-            <div class="progress-bar-container">
-                <div id="progress-bar"></div>
+        <div id="senbatsu-flow" class="flow-section hidden">
+            <h2 data-key="senbatsuTitle">Buat Formasi Senbatsu</h2>
+            <div class="form-group">
+                <label for="senbatsu-size" data-key="senbatsuSizeLabel">Jumlah Member dalam Formasi:</label>
+                <input type="number" id="senbatsu-size" min="1" max="17" value="7">
             </div>
-            <p id="progress-text" data-key="progressText">Memuat...</p> <div class="battle-container">
-                <div class="idol-card" id="idol-1">
-                    <img src="" alt="Idola 1">
-                    <p class="idol-name"></p>
+
+            <div class="senbatsu-members-grid">
                 </div>
-                <div class="vs" data-key="vsText">VS</div> <div class="idol-card" id="idol-2">
-                    <img src="" alt="Idola 2">
-                    <p class="idol-name"></p>
-                </div>
+
+            <div class="senbatsu-summary hidden">
+                <h3 data-key="senbatsuSummaryTitle">Formasi Pilihanmu:</h3>
+                <div id="selected-senbatsu-list">
+                    </div>
+                <button id="reset-senbatsu" data-key="resetSenbatsuButton">Reset Formasi</button>
             </div>
-            <div class="controls">
-                <button id="draw-button" data-key="drawButton">Seri (Draw)</button> </div>
         </div>
 
-        <div id="results-section" class="section hidden">
-            <h2 id="results-title"></h2>
-            <div id="results-list"></div>
-            <div class="share-download-options">
-                <button id="download-results" data-key="downloadResults">Unduh Hasil (Gambar)</button> <button id="share-results" data-key="shareResults">Bagikan</button> </div>
-            <button id="restart-sorter" data-key="restartButton">Mulai Ulang</button> </div>
     </div>
 
     <script src="script.js"></script>
