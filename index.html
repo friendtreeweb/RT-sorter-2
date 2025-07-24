@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +8,10 @@
 </head>
 <body>
     <div class="container">
+        <div class="back-home-button">
+            <button onclick="location.href='index.html'">← Kembali ke Menu Utama</button>
+        </div>
+
         <div class="language-selector">
             <button class="lang-button active" data-lang="id">ID</button>
             <button class="lang-button" data-lang="en">EN</button>
@@ -15,11 +19,6 @@
         </div>
 
         <h1 data-key="mainTitle">Rain Tree Idola Sorter</h1>
-
-        <div class="navigation-menu">
-            <button class="nav-button active" data-target="sorter-flow" data-key="navSorter">Sorter Idola</button>
-            <button class="nav-button" data-target="senbatsu-flow" data-key="navSenbatsu">Formasi Senbatsu</button>
-        </div>
 
         <div id="sorter-flow" class="flow-section">
             <div id="category-selection" class="section">
@@ -64,26 +63,7 @@
                 <button id="restart-sorter" data-key="restartButton">Mulai Ulang</button>
             </div>
         </div>
-
-        <div id="senbatsu-flow" class="flow-section hidden">
-            <h2 data-key="senbatsuTitle">Buat Formasi Senbatsu</h2>
-            <div class="form-group">
-                <label for="senbatsu-size" data-key="senbatsuSizeLabel">Jumlah Member dalam Formasi:</label>
-                <input type="number" id="senbatsu-size" min="1" max="17" value="7">
-            </div>
-
-            <div class="senbatsu-members-grid">
-                </div>
-
-            <div class="senbatsu-summary hidden">
-                <h3 data-key="senbatsuSummaryTitle">Formasi Pilihanmu:</h3>
-                <div id="selected-senbatsu-list">
-                    </div>
-                <button id="reset-senbatsu" data-key="resetSenbatsuButton">Reset Formasi</button>
-            </div>
         </div>
-
-    </div>
 
     <script src="script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
