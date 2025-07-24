@@ -70,6 +70,42 @@
             text-overflow: ellipsis; /* Menambahkan elipsis jika terlalu panjang */
         }
 
+        /* NEW: Display below grid */
+        #members-below-grid {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 15px;
+            border: 1px solid #c8e6c9;
+            border-radius: 8px;
+            background-color: #e8f5e9;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9em;
+            color: #388e3c;
+            min-height: 50px; /* Agar terlihat ada kotak */
+            text-align: center;
+        }
+
+        #members-below-grid .member-display-item {
+            padding: 5px 10px;
+            background-color: #a5d6a7;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #members-below-grid .member-display-item img {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+
         /* POP-UP OVERLAY */
         .popup-overlay {
             position: fixed;
@@ -200,6 +236,14 @@
                 width: 30px;
                 height: 30px;
             }
+            #members-below-grid .member-display-item {
+                font-size: 0.8em;
+                padding: 3px 8px;
+            }
+            #members-below-grid .member-display-item img {
+                width: 20px;
+                height: 20px;
+            }
         }
     </style>
 </head>
@@ -227,6 +271,9 @@
             <div id="senbatsu-formation-grid">
                 </div>
 
+            <div id="members-below-grid">
+                <p data-key="noMemberSelectedInList">Tidak ada member yang dipilih.</p>
+            </div>
             <div class="senbatsu-summary">
                 <h3 data-key="senbatsuSummaryTitle">Formasi Pilihanmu:</h3>
                 <div id="selected-senbatsu-list">
