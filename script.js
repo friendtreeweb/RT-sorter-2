@@ -1,4 +1,4 @@
- document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     // Definisi anggota (nama asli/Romaji - ini adalah kunci untuk terjemahan)
     const members = [
         { name: 'Ayase Kotori', image: 'RT_Kotori.jpeg' },
@@ -10,7 +10,7 @@
         { name: 'Katase Manaka', image: 'RT_Manaka.jpeg' },
         { name: 'Hayama Rico', image: 'RT_Rico.jpeg' },
         { name: 'Nino Fuka', image: 'RT_Fuka.jpeg' },
-        { name: 'Momose Suzuna', image: 'RT_MomoseSuzuna.jpeg' },
+        { name: 'Momose Suzuna', image: 'RT_Suzuna.jpeg' },
         { name: 'Suzuno Mio', image: 'RT_Mio.jpeg' },
         { name: 'Nakamata Miki', image: 'RT_Miki.jpeg' },
         { name: 'Hashimoto Maki', image: 'RT_Maki.jpeg' },
@@ -176,6 +176,7 @@
     const progressBar = document.getElementById('progress-bar');
     const progressText = document.getElementById('progress-text');
     const idol1Card = document.getElementById('idol-1');
+    // PERBAIKAN: Menghapus duplikasi 'document ='
     const idol2Card = document.getElementById('idol-2');
     const idol1Img = idol1Card.querySelector('img');
     const idol1Name = idol1Card.querySelector('.idol-name');
