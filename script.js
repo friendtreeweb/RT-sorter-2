@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+ document.addEventListener('DOMContentLoaded', () => {
     // Definisi anggota (nama asli/Romaji - ini adalah kunci untuk terjemahan)
     const members = [
         { name: 'Ayase Kotori', image: 'RT_Kotori.jpeg' },
@@ -25,8 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
         id: {
             pageTitle: 'Rain Tree Idola Sorter',
             mainTitle: 'Rain Tree Idola Sorter',
-            navSorter: 'Sorter Idola',
-            navSenbatsu: 'Formasi Senbatsu',
             chooseCategory: 'Pilih Kategori Sorter:',
             categoryGeneral: 'Umum',
             categoryVisual: 'Visual',
@@ -70,8 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
         en: {
             pageTitle: 'Rain Tree Idol Sorter',
             mainTitle: 'Rain Tree Idol Sorter',
-            navSorter: 'Idol Sorter',
-            navSenbatsu: 'Senbatsu Formation',
             chooseCategory: 'Choose Sorter Category:',
             categoryGeneral: 'General',
             categoryVisual: 'Visual',
@@ -115,8 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
         jp: {
             pageTitle: 'Rain Tree アイドルソーター',
             mainTitle: 'Rain Tree アイドルソーター',
-            navSorter: 'アイドルソーター',
-            navSenbatsu: '選抜フォーメーション',
             chooseCategory: 'ソーターカテゴリを選択してください:',
             categoryGeneral: '総合',
             categoryVisual: 'ビジュアル',
@@ -161,54 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentLang = 'id'; // Bahasa default saat ini
 
-    // --- DOM Elements ---
+    // --- DOM Elements Umum (yang ada di kedua halaman) ---
     const pageTitleElement = document.querySelector('title');
     const langButtons = document.querySelectorAll('.language-selector .lang-button');
-    const navButtons = document.querySelectorAll('.navigation-menu .nav-button');
-    const flowSections = document.querySelectorAll('.flow-section');
-
-    // Sorter Section Elements
-    const sorterFlow = document.getElementById('sorter-flow');
-    const categorySelectionSection = document.getElementById('category-selection');
-    const sorterSection = document.getElementById('sorter-section');
-    const resultsSection = document.getElementById('results-section');
-    const categoryButtons = document.querySelectorAll('.category-buttons button');
-    const progressBar = document.getElementById('progress-bar');
-    const progressText = document.getElementById('progress-text');
-    const idol1Card = document.getElementById('idol-1');
-    // PERBAIKAN: Menghapus duplikasi 'document ='
-    const idol2Card = document.getElementById('idol-2');
-    const idol1Img = idol1Card.querySelector('img');
-    const idol1Name = idol1Card.querySelector('.idol-name');
-    const idol2Img = idol2Card.querySelector('img');
-    const idol2Name = idol2Card.querySelector('.idol-name');
-    const drawButton = document.getElementById('draw-button');
-    const resultsTitle = document.getElementById('results-title');
-    const resultsList = document.getElementById('results-list');
-    const downloadResultsButton = document.getElementById('download-results');
-    const shareResultsButton = document.getElementById('share-results');
-    const restartSorterButton = document.getElementById('restart-sorter');
-
-    // Senbatsu Section Elements
-    const senbatsuFlow = document.getElementById('senbatsu-flow');
-    const senbatsuSizeInput = document.getElementById('senbatsu-size');
-    const senbatsuMembersGrid = document.querySelector('.senbatsu-members-grid');
-    const senbatsuSummary = document.querySelector('.senbatsu-summary');
-    const selectedSenbatsuList = document.getElementById('selected-senbatsu-list');
-    const resetSenbatsuButton = document.getElementById('reset-senbatsu');
-
-    // --- Sorter Variables ---
-    let currentList = [];
-    let currentIndex = 0;
-    let comparisonsMade = 0;
-    let totalComparisons = 0;
-    let currentCategory = '';
-    const comparedPairs = new Set(); // Untuk melacak pasangan yang sudah dibandingkan
-
-    // --- Senbatsu Variables ---
-    let selectedSenbatsuMembers = [];
-    let maxSenbatsuMembers = parseInt(senbatsuSizeInput.value);
-
 
     // --- General Functions ---
     function shuffleArray(array) {
@@ -231,342 +180,366 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelectorAll('[data-key]').forEach(element => {
             const key = element.dataset.key;
+            // Gunakan terjemahan dari objek 'translations' atau default ke teks elemen
             if (translations[currentLang] && translations[currentLang][key]) {
                 if (element.tagName === 'TITLE') {
-                    element.textContent = translations[currentLang][key];
+                    // Set title secara khusus untuk halaman sorter/senbatsu
+                    if (window.location.pathname.includes('sorter.html')) {
+                        element.textContent = translations[currentLang]['pageTitle'];
+                    } else if (window.location.pathname.includes('senbatsu.html')) {
+                        // Untuk halaman senbatsu, gunakan judul yang berbeda dari "pageTitle" di terjemahan
+                        // Kita bisa langsung ambil dari atribut title di HTML senbatsu.html
+                        element.textContent = element.dataset.key === 'pageTitle' ? translations[currentLang]['pageTitle'].replace('Idola Sorter', 'Formasi Senbatsu') : translations[currentLang][key];
+                    } else {
+                        element.textContent = translations[currentLang][key];
+                    }
                 } else {
                     element.textContent = translations[currentLang][key];
                 }
             }
         });
 
-        // Update dynamic text in Sorter Section
-        if (!sorterSection.classList.contains('hidden') && idol1Card.dataset.name && idol2Card.dataset.name) {
-             idol1Name.textContent = translations[currentLang][idol1Card.dataset.name] || idol1Card.dataset.name;
-             idol2Name.textContent = translations[currentLang][idol2Card.dataset.name] || idol2Card.dataset.name;
-        }
+        // Logika spesifik untuk halaman sorter
+        if (window.location.pathname.includes('sorter.html')) {
+            const sorterSection = document.getElementById('sorter-section');
+            const idol1Card = document.getElementById('idol-1');
+            const idol2Card = document.getElementById('idol-2');
+            const idol1Name = idol1Card.querySelector('.idol-name');
+            const idol2Name = idol2Card.querySelector('.idol-name');
+            const resultsSection = document.getElementById('results-section');
 
-        // Update dynamic text in Senbatsu Section
-        if (!senbatsuFlow.classList.contains('hidden')) {
+            if (!sorterSection.classList.contains('hidden') && idol1Card.dataset.name && idol2Card.dataset.name) {
+                idol1Name.textContent = translations[currentLang][idol1Card.dataset.name] || idol1Card.dataset.name;
+                idol2Name.textContent = translations[currentLang][idol2Card.dataset.name] || idol2Card.dataset.name;
+            }
+            if (!resultsSection.classList.contains('hidden')) {
+                updateResultsDisplay();
+            }
+            updateProgressBar();
+        }
+        // Logika spesifik untuk halaman senbatsu
+        else if (window.location.pathname.includes('senbatsu.html')) {
+            // Karena renderSenbatsuMembersGrid dan updateSelectedSenbatsuDisplay
+            // juga dipanggil saat DOMContentLoaded, kita tidak perlu memanggilnya
+            // di sini lagi untuk kasus perubahan bahasa saja, kecuali ada data-key.
+            // Panggil saja jika ada elemen yang perlu diupdate teksnya secara dinamis
+            // yang tidak tercakup oleh data-key.
             renderSenbatsuMembersGrid(); // Re-render grid to update names
             updateSelectedSenbatsuDisplay(); // Update selected names
         }
+    }
 
-        if (!resultsSection.classList.contains('hidden')) {
+    // --- Logic for Sorter Page (`sorter.html`) ---
+    if (window.location.pathname.includes('sorter.html')) {
+        let currentList = [];
+        let comparisonsMade = 0;
+        let totalComparisons = 0;
+        const comparedPairs = new Set(); // Untuk melacak pasangan yang sudah dibandingkan
+
+        const categorySelectionSection = document.getElementById('category-selection');
+        const sorterSection = document.getElementById('sorter-section');
+        const resultsSection = document.getElementById('results-section');
+        const categoryButtons = document.querySelectorAll('.category-buttons button');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const idol1Card = document.getElementById('idol-1');
+        const idol2Card = document.getElementById('idol-2');
+        const idol1Img = idol1Card.querySelector('img');
+        const idol1Name = idol1Card.querySelector('.idol-name');
+        const idol2Img = idol2Card.querySelector('img');
+        const idol2Name = idol2Card.querySelector('.idol-name');
+        const drawButton = document.getElementById('draw-button');
+        const resultsTitle = document.getElementById('results-title');
+        const resultsList = document.getElementById('results-list');
+        const downloadResultsButton = document.getElementById('download-results');
+        const shareResultsButton = document.getElementById('share-results');
+        const restartSorterButton = document.getElementById('restart-sorter');
+        let currentCategory = ''; // Pindahkan deklarasi ke lingkup sorter
+
+        function initializeSorter(category) {
+            currentCategory = category;
+            currentList = members.map(member => ({ ...member, wins: 0, losses: 0, draws: 0 }));
+            shuffleArray(currentList);
+            comparisonsMade = 0;
+            totalComparisons = calculateTotalComparisons(currentList.length);
+            updateProgressBar();
+
+            categorySelectionSection.classList.add('hidden');
+            sorterSection.classList.remove('hidden');
+
+            startNextComparison();
+        }
+
+        function updateProgressBar() {
+            if (totalComparisons === 0) {
+                progressBar.style.width = '100%';
+                progressText.textContent = `${translations[currentLang]['progressText']} Selesai!`;
+                return;
+            }
+            const progressPercentage = (comparisonsMade / totalComparisons) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+            progressText.textContent = `${translations[currentLang]['progressText']} ${comparisonsMade} / ${totalComparisons}`;
+        }
+
+        function getRandomUniquePair() {
+            const availablePairs = [];
+            for (let i = 0; i < currentList.length; i++) {
+                for (let j = i + 1; j < currentList.length; j++) {
+                    const pairKey1 = `${currentList[i].name}-${currentList[j].name}`;
+                    const pairKey2 = `${currentList[j].name}-${currentList[i].name}`;
+                    if (!comparedPairs.has(pairKey1) && !comparedPairs.has(pairKey2)) {
+                        availablePairs.push([currentList[i], currentList[j]]);
+                    }
+                }
+            }
+            if (availablePairs.length > 0) {
+                const randomIndex = Math.floor(Math.random() * availablePairs.length);
+                const pair = availablePairs[randomIndex];
+                comparedPairs.add(`${pair[0].name}-${pair[1].name}`);
+                return pair;
+            }
+            return [null, null];
+        }
+
+        function startNextComparison() {
+            if (comparisonsMade >= totalComparisons) {
+                finishSorting();
+                return;
+            }
+            const [idol1, idol2] = getRandomUniquePair();
+            if (idol1 && idol2) {
+                displayBattle(idol1, idol2);
+            } else {
+                finishSorting();
+            }
+        }
+
+        function displayBattle(idol1, idol2) {
+            idol1Card.dataset.name = idol1.name;
+            idol1Img.src = `images/${idol1.image}`;
+            idol1Name.textContent = translations[currentLang][idol1.name] || idol1.name;
+
+            idol2Card.dataset.name = idol2.name;
+            idol2Img.src = `images/${idol2.image}`;
+            idol2Name.textContent = translations[currentLang][idol2.name] || idol2.name;
+        }
+
+        function handleChoice(winnerName) {
+            const idol1 = currentList.find(m => m.name === idol1Card.dataset.name);
+            const idol2 = currentList.find(m => m.name === idol2Card.dataset.name);
+            if (!idol1 || !idol2) {
+                console.error('Idol not found for comparison.');
+                return;
+            }
+            comparisonsMade++;
+            if (winnerName === 'draw') {
+                idol1.draws++;
+                idol2.draws++;
+            } else if (winnerName === idol1.name) {
+                idol1.wins++;
+                idol2.losses++;
+            } else if (winnerName === idol2.name) {
+                idol2.wins++;
+                idol1.losses++;
+            }
+            updateProgressBar();
+            startNextComparison();
+        }
+
+        function finishSorting() {
+            sorterSection.classList.add('hidden');
+            resultsSection.classList.remove('hidden');
+
+            currentList.sort((a, b) => {
+                if (b.wins !== a.wins) return b.wins - a.wins;
+                if (b.draws !== a.draws) return b.draws - a.draws;
+                return a.name.localeCompare(b.name);
+            });
             updateResultsDisplay();
         }
 
-        updateProgressBar(); // Update progress text with current language
-    }
-
-    // --- Navigation Functions ---
-    function showFlow(flowId) {
-        flowSections.forEach(section => {
-            section.classList.add('hidden');
-        });
-        document.getElementById(flowId).classList.remove('hidden');
-
-        navButtons.forEach(button => {
-            if (button.dataset.target === flowId) {
-                button.classList.add('active');
-            } else {
-                button.classList.remove('active');
+        function updateResultsDisplay() {
+            let titleKey = '';
+            switch (currentCategory) {
+                case 'general': titleKey = 'resultsGeneral'; break;
+                case 'talent': titleKey = 'resultsTalent'; break;
+                case 'visual': titleKey = 'resultsVisual'; break;
+                case 'comedian': titleKey = 'resultsComedian'; break;
+                default: titleKey = 'resultsGeneral'; break;
             }
-        });
-        // Reset sorter state if navigating away
-        if (flowId !== 'sorter-flow') {
-            categorySelectionSection.classList.remove('hidden');
-            sorterSection.classList.add('hidden');
-            resultsSection.classList.add('hidden');
-            comparedPairs.clear(); // Clear sorter state
-        }
-        // Reset senbatsu state if navigating away
-        if (flowId !== 'senbatsu-flow') {
-            resetSenbatsuFormation();
-        }
-    }
+            resultsTitle.textContent = translations[currentLang][titleKey];
 
-    // --- Sorter Functions ---
-    function initializeSorter(category) {
-        currentCategory = category;
-        currentList = members.map(member => ({ ...member, wins: 0, losses: 0, draws: 0 }));
-        shuffleArray(currentList);
-        currentIndex = 0;
-        comparisonsMade = 0;
-        totalComparisons = calculateTotalComparisons(currentList.length);
-        updateProgressBar();
-
-        categorySelectionSection.classList.add('hidden');
-        sorterSection.classList.remove('hidden');
-
-        startNextComparison();
-    }
-
-    function updateProgressBar() {
-        if (totalComparisons === 0) {
-            progressBar.style.width = '100%';
-            progressText.textContent = `${translations[currentLang]['progressText']} Selesai!`;
-            return;
-        }
-        const progressPercentage = (comparisonsMade / totalComparisons) * 100;
-        progressBar.style.width = `${progressPercentage}%`;
-        progressText.textContent = `${translations[currentLang]['progressText']} ${comparisonsMade} / ${totalComparisons}`;
-    }
-
-    function getRandomUniquePair() {
-        const availablePairs = [];
-        for (let i = 0; i < currentList.length; i++) {
-            for (let j = i + 1; j < currentList.length; j++) {
-                const pairKey1 = `${currentList[i].name}-${currentList[j].name}`;
-                const pairKey2 = `${currentList[j].name}-${currentList[i].name}`;
-                if (!comparedPairs.has(pairKey1) && !comparedPairs.has(pairKey2)) {
-                    availablePairs.push([currentList[i], currentList[j]]);
-                }
-            }
-        }
-        if (availablePairs.length > 0) {
-            const randomIndex = Math.floor(Math.random() * availablePairs.length);
-            const pair = availablePairs[randomIndex];
-            comparedPairs.add(`${pair[0].name}-${pair[1].name}`);
-            return pair;
-        }
-        return [null, null];
-    }
-
-    function startNextComparison() {
-        if (comparisonsMade >= totalComparisons) {
-            finishSorting();
-            return;
-        }
-        const [idol1, idol2] = getRandomUniquePair();
-        if (idol1 && idol2) {
-            displayBattle(idol1, idol2);
-        } else {
-            finishSorting();
-        }
-    }
-
-    function displayBattle(idol1, idol2) {
-        idol1Card.dataset.name = idol1.name;
-        idol1Img.src = `images/${idol1.image}`;
-        idol1Name.textContent = translations[currentLang][idol1.name] || idol1.name;
-
-        idol2Card.dataset.name = idol2.name;
-        idol2Img.src = `images/${idol2.image}`;
-        idol2Name.textContent = translations[currentLang][idol2.name] || idol2.name;
-    }
-
-    function handleChoice(winnerName) {
-        const idol1 = currentList.find(m => m.name === idol1Card.dataset.name);
-        const idol2 = currentList.find(m => m.name === idol2Card.dataset.name);
-        if (!idol1 || !idol2) {
-            console.error('Idol not found for comparison.');
-            return;
-        }
-        comparisonsMade++;
-        if (winnerName === 'draw') {
-            idol1.draws++;
-            idol2.draws++;
-        } else if (winnerName === idol1.name) {
-            idol1.wins++;
-            idol2.losses++;
-        } else if (winnerName === idol2.name) {
-            idol2.wins++;
-            idol1.losses++;
-        }
-        updateProgressBar();
-        startNextComparison();
-    }
-
-    function finishSorting() {
-        sorterSection.classList.add('hidden');
-        resultsSection.classList.remove('hidden');
-
-        currentList.sort((a, b) => {
-            if (b.wins !== a.wins) return b.wins - a.wins;
-            if (b.draws !== a.draws) return b.draws - a.draws;
-            return a.name.localeCompare(b.name);
-        });
-        updateResultsDisplay();
-    }
-
-    function updateResultsDisplay() {
-        let titleKey = '';
-        switch (currentCategory) {
-            case 'general': titleKey = 'resultsGeneral'; break;
-            case 'talent': titleKey = 'resultsTalent'; break;
-            case 'visual': titleKey = 'resultsVisual'; break;
-            case 'comedian': titleKey = 'resultsComedian'; break;
-            default: titleKey = 'resultsGeneral'; break;
-        }
-        resultsTitle.textContent = translations[currentLang][titleKey];
-
-        resultsList.innerHTML = '';
-        currentList.forEach((member, index) => {
-            const resultItem = document.createElement('div');
-            resultItem.classList.add('result-item');
-            resultItem.innerHTML = `
-                <span>${index + 1}.</span>
-                <img src="images/${member.image}" alt="${member.name}">
-                <p>${translations[currentLang][member.name] || member.name} (W:${member.wins} D:${member.draws} L:${member.losses})</p>
-            `;
-            resultsList.appendChild(resultItem);
-        });
-    }
-
-    // --- Senbatsu Formation Functions ---
-    function renderSenbatsuMembersGrid() {
-        senbatsuMembersGrid.innerHTML = ''; // Clear previous grid
-        members.forEach(member => {
-            const memberCard = document.createElement('div');
-            memberCard.classList.add('senbatsu-member-card');
-            memberCard.dataset.name = member.name;
-
-            const isSelected = selectedSenbatsuMembers.some(m => m.name === member.name);
-            if (isSelected) {
-                memberCard.classList.add('selected');
-            }
-
-            memberCard.innerHTML = `
-                <img src="images/${member.image}" alt="${member.name}">
-                <p class="member-name">${translations[currentLang][member.name] || member.name}</p>
-            `;
-            memberCard.addEventListener('click', () => toggleMemberSelection(member));
-            senbatsuMembersGrid.appendChild(memberCard);
-        });
-    }
-
-    function toggleMemberSelection(member) {
-        const memberCard = senbatsuMembersGrid.querySelector(`[data-name="${member.name}"]`);
-        const index = selectedSenbatsuMembers.findIndex(m => m.name === member.name);
-
-        if (index === -1) {
-            // Member not selected, try to add
-            if (selectedSenbatsuMembers.length < maxSenbatsuMembers) {
-                selectedSenbatsuMembers.push(member);
-                memberCard.classList.add('selected');
-            } else {
-                alert(translations[currentLang]['alertMaxMembers'].replace('{maxMembers}', maxSenbatsuMembers));
-            }
-        } else {
-            // Member is selected, remove it
-            selectedSenbatsuMembers.splice(index, 1);
-            memberCard.classList.remove('selected');
-        }
-        updateSelectedSenbatsuDisplay();
-    }
-
-    function updateSelectedSenbatsuDisplay() {
-        selectedSenbatsuList.innerHTML = ''; // Clear previous list
-        if (selectedSenbatsuMembers.length > 0) {
-            senbatsuSummary.classList.remove('hidden');
-            selectedSenbatsuMembers.forEach(member => {
-                const selectedItem = document.createElement('div');
-                selectedItem.classList.add('selected-member-item');
-                selectedItem.innerHTML = `
+            resultsList.innerHTML = '';
+            currentList.forEach((member, index) => {
+                const resultItem = document.createElement('div');
+                resultItem.classList.add('result-item');
+                resultItem.innerHTML = `
+                    <span>${index + 1}.</span>
                     <img src="images/${member.image}" alt="${member.name}">
-                    ${translations[currentLang][member.name] || member.name}
+                    <p>${translations[currentLang][member.name] || member.name} (W:${member.wins} D:${member.draws} L:${member.losses})</p>
                 `;
-                selectedSenbatsuList.appendChild(selectedItem);
+                resultsList.appendChild(resultItem);
             });
-        } else {
-            senbatsuSummary.classList.add('hidden');
         }
-    }
 
-    function resetSenbatsuFormation() {
-        selectedSenbatsuMembers = [];
-        renderSenbatsuMembersGrid(); // Re-render to deselect all
-        updateSelectedSenbatsuDisplay(); // Hide summary
-    }
-
-    // --- Event Listeners ---
-
-    // Language Buttons
-    langButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            setLanguage(e.target.dataset.lang);
+        // --- Sorter Event Listeners ---
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                initializeSorter(e.target.dataset.category);
+            });
         });
-    });
-
-    // Navigation Buttons
-    navButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            showFlow(e.target.dataset.target);
-        });
-    });
-
-    // Sorter Events
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            initializeSorter(e.target.dataset.category);
-        });
-    });
-    idol1Card.addEventListener('click', () => handleChoice(idol1Card.dataset.name));
-    idol2Card.addEventListener('click', () => handleChoice(idol2Card.dataset.name));
-    drawButton.addEventListener('click', () => handleChoice('draw'));
-    downloadResultsButton.addEventListener('click', () => {
-        html2canvas(resultsSection, {
-            useCORS: true,
-            scale: 2,
-            backgroundColor: '#ffffff'
-        }).then(canvas => {
-            const link = document.createElement('a');
-            link.download = `rain_tree_sorter_results_${currentLang}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        });
-    });
-    shareResultsButton.addEventListener('click', () => {
-        if (navigator.share) {
+        idol1Card.addEventListener('click', () => handleChoice(idol1Card.dataset.name));
+        idol2Card.addEventListener('click', () => handleChoice(idol2Card.dataset.name));
+        drawButton.addEventListener('click', () => handleChoice('draw'));
+        downloadResultsButton.addEventListener('click', () => {
             html2canvas(resultsSection, {
                 useCORS: true,
                 scale: 2,
                 backgroundColor: '#ffffff'
             }).then(canvas => {
-                canvas.toBlob(function(blob) {
-                    const filesArray = [
-                        new File([blob], `rain_tree_sorter_results_${currentLang}.png`, {
-                            type: 'image/png',
-                            lastModified: new Date().getTime()
-                        })
-                    ];
-                    const shareText = `Lihat hasil sorting Rain Tree saya untuk kategori ${translations[currentLang][`category${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1)}`]}!`;
-                    navigator.share({
-                        files: filesArray,
-                        title: translations[currentLang]['pageTitle'],
-                        text: shareText,
-                        url: window.location.href,
-                    }).then(() => console.log('Share successful'))
-                    .catch((error) => console.log('Sharing failed', error));
-                }, 'image/png');
+                const link = document.createElement('a');
+                link.download = `rain_tree_sorter_results_${currentLang}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
             });
-        } else {
-            alert('Fitur berbagi tidak didukung di browser ini. Anda bisa mengunduh gambar dan membagikannya secara manual.');
-        }
-    });
-    restartSorterButton.addEventListener('click', () => {
-        categorySelectionSection.classList.remove('hidden');
-        sorterSection.classList.add('hidden'); // Ensure sorter section is hidden
-        resultsSection.classList.add('hidden');
-        resultsList.innerHTML = '';
-        comparedPairs.clear();
-        updateProgressBar();
-    });
+        });
+        shareResultsButton.addEventListener('click', () => {
+            if (navigator.share) {
+                html2canvas(resultsSection, {
+                    useCORS: true,
+                    scale: 2,
+                    backgroundColor: '#ffffff'
+                }).then(canvas => {
+                    canvas.toBlob(function(blob) {
+                        const filesArray = [
+                            new File([blob], `rain_tree_sorter_results_${currentLang}.png`, {
+                                type: 'image/png',
+                                lastModified: new Date().getTime()
+                            })
+                        ];
+                        const shareText = `Lihat hasil sorting Rain Tree saya untuk kategori ${translations[currentLang][`category${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1)}`]}!`;
+                        navigator.share({
+                            files: filesArray,
+                            title: translations[currentLang]['pageTitle'],
+                            text: shareText,
+                            url: window.location.href,
+                        }).then(() => console.log('Share successful'))
+                        .catch((error) => console.log('Sharing failed', error));
+                    }, 'image/png');
+                });
+            } else {
+                alert('Fitur berbagi tidak didukung di browser ini. Anda bisa mengunduh gambar dan membagikannya secara manual.');
+            }
+        });
+        restartSorterButton.addEventListener('click', () => {
+            categorySelectionSection.classList.remove('hidden');
+            sorterSection.classList.add('hidden');
+            resultsSection.classList.add('hidden');
+            resultsList.innerHTML = '';
+            comparedPairs.clear();
+            updateProgressBar();
+        });
 
-    // Senbatsu Events
-    senbatsuSizeInput.addEventListener('change', (e) => {
-        maxSenbatsuMembers = parseInt(e.target.value);
-        if (selectedSenbatsuMembers.length > maxSenbatsuMembers) {
-            selectedSenbatsuMembers = selectedSenbatsuMembers.slice(0, maxSenbatsuMembers); // Truncate if size reduces
+        // Initialize sorter specific language settings
+        setLanguage('id'); // Default language for sorter page
+    }
+
+    // --- Logic for Senbatsu Page (`senbatsu.html`) ---
+    else if (window.location.pathname.includes('senbatsu.html')) {
+        let selectedSenbatsuMembers = [];
+        let maxSenbatsuMembers;
+
+        const senbatsuSizeInput = document.getElementById('senbatsu-size');
+        const senbatsuMembersGrid = document.querySelector('.senbatsu-members-grid');
+        const senbatsuSummary = document.querySelector('.senbatsu-summary');
+        const selectedSenbatsuList = document.getElementById('selected-senbatsu-list');
+        const resetSenbatsuButton = document.getElementById('reset-senbatsu');
+
+        // Set initial maxSenbatsuMembers from input
+        maxSenbatsuMembers = parseInt(senbatsuSizeInput.value);
+
+        function renderSenbatsuMembersGrid() {
+            senbatsuMembersGrid.innerHTML = ''; // Clear previous grid
+            members.forEach(member => {
+                const memberCard = document.createElement('div');
+                memberCard.classList.add('senbatsu-member-card');
+                memberCard.dataset.name = member.name;
+
+                const isSelected = selectedSenbatsuMembers.some(m => m.name === member.name);
+                if (isSelected) {
+                    memberCard.classList.add('selected');
+                }
+
+                memberCard.innerHTML = `
+                    <img src="images/${member.image}" alt="${member.name}">
+                    <p class="member-name">${translations[currentLang][member.name] || member.name}</p>
+                `;
+                memberCard.addEventListener('click', () => toggleMemberSelection(member));
+                senbatsuMembersGrid.appendChild(memberCard);
+            });
+        }
+
+        function toggleMemberSelection(member) {
+            const memberCard = senbatsuMembersGrid.querySelector(`[data-name="${member.name}"]`);
+            const index = selectedSenbatsuMembers.findIndex(m => m.name === member.name);
+
+            if (index === -1) {
+                // Member not selected, try to add
+                if (selectedSenbatsuMembers.length < maxSenbatsuMembers) {
+                    selectedSenbatsuMembers.push(member);
+                    memberCard.classList.add('selected');
+                } else {
+                    alert(translations[currentLang]['alertMaxMembers'].replace('{maxMembers}', maxSenbatsuMembers));
+                }
+            } else {
+                // Member is selected, remove it
+                selectedSenbatsuMembers.splice(index, 1);
+                memberCard.classList.remove('selected');
+            }
             updateSelectedSenbatsuDisplay();
-            renderSenbatsuMembersGrid(); // Update card selected states
         }
-    });
-    resetSenbatsuButton.addEventListener('click', resetSenbatsuFormation);
 
-    // Initial Setup
-    setLanguage('id'); // Start with Bahasa Indonesia
-    showFlow('sorter-flow'); // Show sorter by default
-    renderSenbatsuMembersGrid(); // Render senbatsu grid on load
+        function updateSelectedSenbatsuDisplay() {
+            selectedSenbatsuList.innerHTML = ''; // Clear previous list
+            if (selectedSenbatsuMembers.length > 0) {
+                senbatsuSummary.classList.remove('hidden');
+                selectedSenbatsuMembers.forEach(member => {
+                    const selectedItem = document.createElement('div');
+                    selectedItem.classList.add('selected-member-item');
+                    selectedItem.innerHTML = `
+                        <img src="images/${member.image}" alt="${member.name}">
+                        ${translations[currentLang][member.name] || member.name}
+                    `;
+                    selectedSenbatsuList.appendChild(selectedItem);
+                });
+            } else {
+                senbatsuSummary.classList.add('hidden');
+            }
+        }
+
+        function resetSenbatsuFormation() {
+            selectedSenbatsuMembers = [];
+            renderSenbatsuMembersGrid(); // Re-render to deselect all
+            updateSelectedSenbatsuDisplay(); // Hide summary
+        }
+
+        // --- Senbatsu Event Listeners ---
+        senbatsuSizeInput.addEventListener('change', (e) => {
+            maxSenbatsuMembers = parseInt(e.target.value);
+            if (selectedSenbatsuMembers.length > maxSenbatsuMembers) {
+                selectedSenbatsuMembers = selectedSenbatsuMembers.slice(0, maxSenbatsuMembers); // Truncate if size reduces
+                updateSelectedSenbatsuDisplay();
+                renderSenbatsuMembersGrid(); // Update card selected states
+            }
+        });
+        resetSenbatsuButton.addEventListener('click', resetSenbatsuFormation);
+
+        // Initialize senbatsu specific language settings and render grid
+        setLanguage('id'); // Default language for senbatsu page
+        renderSenbatsuMembersGrid(); // Initial render of the grid
+    }
+
+    // Set initial language for any common elements (like language buttons themselves)
+    // This will also trigger the page-specific setLanguage logic due to the if/else if blocks
+    setLanguage('id');
 });
