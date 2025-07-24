@@ -1,23 +1,23 @@
-document.addEventListener('DOMContentLoaded', () => {
+ document.addEventListener('DOMContentLoaded', () => {
     // Definisi anggota (nama asli/Romaji - ini adalah kunci untuk terjemahan)
     const members = [
-        { name: 'Ayase Kotori', image: 'RT_Kotori.jpeg' },
-        { name: 'Endo Rino', image: 'RT_Rino.jpeg' },
-        { name: 'Yoshikawa Umi', image: 'RT_Umi.jpeg' },
-        { name: 'Mizuno Noa', image: 'RT_Noa.jpeg' },
-        { name: 'Ichihara Tsumugi', image: 'RT_Tsumugi.jpeg' },
-        { name: 'Sato Rica', image: 'RT_Rica.jpeg' },
-        { name: 'Katase Manaka', image: 'RT_Manaka.jpeg' },
-        { name: 'Hayama Rico', image: 'RT_Rico.jpeg' },
-        { name: 'Nino Fuka', image: 'RT_Fuka.jpeg' },
-        { name: 'Momose Suzuna', image: 'RT_Suzuna.jpeg' },
-        { name: 'Suzuno Mio', image: 'RT_Mio.jpeg' },
-        { name: 'Nakamata Miki', image: 'RT_Miki.jpeg' },
-        { name: 'Hashimoto Maki', image: 'RT_Maki.jpeg' },
-        { name: 'Kurosawa Karen', image: 'RT_Karen.jpeg' },
-        { name: 'Kato Shu', image: 'RT_Shu.jpeg' },
-        { name: 'Nagase Mari', image: 'RT_Mari.jpeg' },
-        { name: 'Asamiya Hinata', image: 'RT_Hinata.jpeg' },
+        { name: 'Ayase Kotori', image: 'RT_AyaseKotori.jpeg' },
+        { name: 'Endo Rino', image: 'RT_EndoRino.jpeg' },
+        { name: 'Yoshikawa Umi', image: 'RT_YoshikawaUmi.jpeg' },
+        { name: 'Mizuno Noa', image: 'RT_MizunoNoa.jpeg' },
+        { name: 'Ichihara Tsumugi', image: 'RT_IchiharaTsumugi.jpeg' },
+        { name: 'Sato Rica', image: 'RT_SatoRica.jpeg' },
+        { name: 'Katase Manaka', image: 'RT_KataseManaka.jpeg' },
+        { name: 'Hayama Rico', image: 'RT_HayamaRico.jpeg' },
+        { name: 'Nino Fuka', image: 'RT_NinoFuka.jpeg' },
+        { name: 'Momose Suzuna', image: 'RT_MomoseSuzuna.jpeg' },
+        { name: 'Suzuno Mio', image: 'RT_SuzunoMio.jpeg' },
+        { name: 'Nakamata Miki', image: 'RT_NakamataMiki.jpeg' },
+        { name: 'Hashimoto Maki', image: 'RT_HashimotoMaki.jpeg' },
+        { name: 'Kurosawa Karen', image: 'RT_KurosawaKaren.jpeg' },
+        { name: 'Kato Shu', image: 'RT_KatoShu.jpeg' },
+        { name: 'Nagase Mari', image: 'RT_NagaseMari.jpeg' },
+        { name: 'Asamiya Hinata', image: 'RT_AsamiyaHinata.jpeg' },
     ];
 
     // --- Objek Terjemahan (Translations) ---
@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         id: {
             pageTitle: 'Rain Tree Idola Sorter',
             mainTitle: 'Rain Tree Idola Sorter',
+            navSorter: 'Sorter Idola',
+            navSenbatsu: 'Formasi Senbatsu',
             chooseCategory: 'Pilih Kategori Sorter:',
             categoryGeneral: 'Umum',
             categoryVisual: 'Visual',
@@ -40,6 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsTalent: 'Member paling berbakat versi kamu:',
             resultsVisual: 'Visual terbaik versi kamu:',
             resultsComedian: 'Member terlucu versi kamu:',
+            senbatsuTitle: 'Buat Formasi Senbatsu',
+            senbatsuSizeLabel: 'Jumlah Member dalam Formasi:',
+            senbatsuSummaryTitle: 'Formasi Pilihanmu:',
+            resetSenbatsuButton: 'Reset Formasi',
+            alertMaxMembers: 'Jumlah member formasi sudah penuh ({maxMembers} member).',
+            alertMinMembers: 'Pilih setidaknya satu member.',
             // Terjemahan nama anggota (Romaji untuk ID)
             'Ayase Kotori': 'Ayase Kotori',
             'Endo Rino': 'Endo Rino',
@@ -62,6 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
         en: {
             pageTitle: 'Rain Tree Idol Sorter',
             mainTitle: 'Rain Tree Idol Sorter',
+            navSorter: 'Idol Sorter',
+            navSenbatsu: 'Senbatsu Formation',
             chooseCategory: 'Choose Sorter Category:',
             categoryGeneral: 'General',
             categoryVisual: 'Visual',
@@ -77,6 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsTalent: 'Your most talented member:',
             resultsVisual: 'Your best visual member:',
             resultsComedian: 'Your funniest member:',
+            senbatsuTitle: 'Create Senbatsu Formation',
+            senbatsuSizeLabel: 'Number of Members in Formation:',
+            senbatsuSummaryTitle: 'Your Chosen Formation:',
+            resetSenbatsuButton: 'Reset Formation',
+            alertMaxMembers: 'Maximum formation members reached ({maxMembers} members).',
+            alertMinMembers: 'Please select at least one member.',
             // Terjemahan nama anggota (Romaji untuk EN)
             'Ayase Kotori': 'Ayase Kotori',
             'Endo Rino': 'Endo Rino',
@@ -99,6 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
         jp: {
             pageTitle: 'Rain Tree アイドルソーター',
             mainTitle: 'Rain Tree アイドルソーター',
+            navSorter: 'アイドルソーター',
+            navSenbatsu: '選抜フォーメーション',
             chooseCategory: 'ソーターカテゴリを選択してください:',
             categoryGeneral: '総合',
             categoryVisual: 'ビジュアル',
@@ -114,6 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsTalent: 'あなたの最も才能のあるメンバー:',
             resultsVisual: 'あなたの最高のビジュアルメンバー:',
             resultsComedian: 'あなたの最も面白いメンバー:',
+            senbatsuTitle: '選抜フォーメーションを作成',
+            senbatsuSizeLabel: 'フォーメーション人数:',
+            senbatsuSummaryTitle: 'あなたの選んだフォーメーション:',
+            resetSenbatsuButton: 'フォーメーションをリセット',
+            alertMaxMembers: 'フォーメーションの最大人数に達しました（{maxMembers}人）。',
+            alertMinMembers: '少なくとも一人メンバーを選択してください。',
             // Terjemahan nama anggota dalam Kanji/Kana yang benar
             'Asamiya Hinata': '朝宮日向',
             'Ayase Kotori': '綾瀬ことり',
@@ -137,14 +161,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentLang = 'id'; // Bahasa default saat ini
 
-    // ... (kode yang sudah ada)
+    // --- DOM Elements ---
+    const pageTitleElement = document.querySelector('title');
+    const langButtons = document.querySelectorAll('.language-selector .lang-button');
+    const navButtons = document.querySelectorAll('.navigation-menu .nav-button');
+    const flowSections = document.querySelectorAll('.flow-section');
 
-    let currentList = [];
-    let currentIndex = 0;
-    let comparisonsMade = 0;
-    let totalComparisons = 0;
-    let currentCategory = '';
-
+    // Sorter Section Elements
+    const sorterFlow = document.getElementById('sorter-flow');
     const categorySelectionSection = document.getElementById('category-selection');
     const sorterSection = document.getElementById('sorter-section');
     const resultsSection = document.getElementById('results-section');
@@ -152,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressBar = document.getElementById('progress-bar');
     const progressText = document.getElementById('progress-text');
     const idol1Card = document.getElementById('idol-1');
-    const idol2Card = document = document.getElementById('idol-2');
+    const idol2Card = document.getElementById('idol-2');
     const idol1Img = idol1Card.querySelector('img');
     const idol1Name = idol1Card.querySelector('.idol-name');
     const idol2Img = idol2Card.querySelector('img');
@@ -163,10 +187,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const downloadResultsButton = document.getElementById('download-results');
     const shareResultsButton = document.getElementById('share-results');
     const restartSorterButton = document.getElementById('restart-sorter');
-    const langButtons = document.querySelectorAll('.language-selector .lang-button'); // Ambil tombol bahasa
-    const pageTitleElement = document.querySelector('title'); // Ambil elemen title
 
-    // --- Fungsi Bantuan ---
+    // Senbatsu Section Elements
+    const senbatsuFlow = document.getElementById('senbatsu-flow');
+    const senbatsuSizeInput = document.getElementById('senbatsu-size');
+    const senbatsuMembersGrid = document.querySelector('.senbatsu-members-grid');
+    const senbatsuSummary = document.querySelector('.senbatsu-summary');
+    const selectedSenbatsuList = document.getElementById('selected-senbatsu-list');
+    const resetSenbatsuButton = document.getElementById('reset-senbatsu');
+
+    // --- Sorter Variables ---
+    let currentList = [];
+    let currentIndex = 0;
+    let comparisonsMade = 0;
+    let totalComparisons = 0;
+    let currentCategory = '';
+    const comparedPairs = new Set(); // Untuk melacak pasangan yang sudah dibandingkan
+
+    // --- Senbatsu Variables ---
+    let selectedSenbatsuMembers = [];
+    let maxSenbatsuMembers = parseInt(senbatsuSizeInput.value);
+
+
+    // --- General Functions ---
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -179,15 +222,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return (n * (n - 1)) / 2;
     }
 
-    // --- Fungsi Terjemahan ---
+    // --- Translation Function ---
     function setLanguage(lang) {
         currentLang = lang;
-        // Hapus kelas 'active' dari semua tombol bahasa
         langButtons.forEach(button => button.classList.remove('active'));
-        // Tambahkan kelas 'active' ke tombol yang dipilih
         document.querySelector(`.lang-button[data-lang="${lang}"]`).classList.add('active');
 
-        // Terjemahkan semua elemen dengan data-key
         document.querySelectorAll('[data-key]').forEach(element => {
             const key = element.dataset.key;
             if (translations[currentLang] && translations[currentLang][key]) {
@@ -199,33 +239,53 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Terjemahkan nama-nama anggota yang ditampilkan saat battle
-        // Pastikan idol1Card.dataset.name dan idol2Card.dataset.name ada sebelum mencoba menerjemahkan
+        // Update dynamic text in Sorter Section
         if (!sorterSection.classList.contains('hidden') && idol1Card.dataset.name && idol2Card.dataset.name) {
-             const idol1NameElement = idol1Card.querySelector('.idol-name');
-             const idol2NameElement = idol2Card.querySelector('.idol-name');
-             const name1Original = idol1Card.dataset.name;
-             const name2Original = idol2Card.dataset.name;
-
-             if (translations[currentLang][name1Original]) {
-                 idol1NameElement.textContent = translations[currentLang][name1Original];
-             }
-             if (translations[currentLang][name2Original]) {
-                 idol2NameElement.textContent = translations[currentLang][name2Original];
-             }
+             idol1Name.textContent = translations[currentLang][idol1Card.dataset.name] || idol1Card.dataset.name;
+             idol2Name.textContent = translations[currentLang][idol2Card.dataset.name] || idol2Card.dataset.name;
         }
 
-        // Terjemahkan nama anggota di daftar hasil akhir
+        // Update dynamic text in Senbatsu Section
+        if (!senbatsuFlow.classList.contains('hidden')) {
+            renderSenbatsuMembersGrid(); // Re-render grid to update names
+            updateSelectedSenbatsuDisplay(); // Update selected names
+        }
+
         if (!resultsSection.classList.contains('hidden')) {
-            updateResultsDisplay(); // Panggil ulang fungsi untuk memperbarui tampilan hasil
+            updateResultsDisplay();
         }
 
-        // Perbarui teks progres (jika ada)
-        updateProgressBar();
+        updateProgressBar(); // Update progress text with current language
     }
 
+    // --- Navigation Functions ---
+    function showFlow(flowId) {
+        flowSections.forEach(section => {
+            section.classList.add('hidden');
+        });
+        document.getElementById(flowId).classList.remove('hidden');
 
-    // --- Inisialisasi Sorter ---
+        navButtons.forEach(button => {
+            if (button.dataset.target === flowId) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+        // Reset sorter state if navigating away
+        if (flowId !== 'sorter-flow') {
+            categorySelectionSection.classList.remove('hidden');
+            sorterSection.classList.add('hidden');
+            resultsSection.classList.add('hidden');
+            comparedPairs.clear(); // Clear sorter state
+        }
+        // Reset senbatsu state if navigating away
+        if (flowId !== 'senbatsu-flow') {
+            resetSenbatsuFormation();
+        }
+    }
+
+    // --- Sorter Functions ---
     function initializeSorter(category) {
         currentCategory = category;
         currentList = members.map(member => ({ ...member, wins: 0, losses: 0, draws: 0 }));
@@ -238,15 +298,12 @@ document.addEventListener('DOMContentLoaded', () => {
         categorySelectionSection.classList.add('hidden');
         sorterSection.classList.remove('hidden');
 
-        // Pastikan nama member di sorter ditampilkan dengan bahasa yang benar
         startNextComparison();
     }
 
-    // --- Update Progress Bar ---
     function updateProgressBar() {
         if (totalComparisons === 0) {
             progressBar.style.width = '100%';
-            // Menggunakan terjemahan untuk "Proses:" dan menambahkan "Selesai!"
             progressText.textContent = `${translations[currentLang]['progressText']} Selesai!`;
             return;
         }
@@ -254,9 +311,6 @@ document.addEventListener('DOMContentLoaded', () => {
         progressBar.style.width = `${progressPercentage}%`;
         progressText.textContent = `${translations[currentLang]['progressText']} ${comparisonsMade} / ${totalComparisons}`;
     }
-
-    // --- Tampilkan Perbandingan Selanjutnya ---
-    const comparedPairs = new Set();
 
     function getRandomUniquePair() {
         const availablePairs = [];
@@ -269,7 +323,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
-
         if (availablePairs.length > 0) {
             const randomIndex = Math.floor(Math.random() * availablePairs.length);
             const pair = availablePairs[randomIndex];
@@ -280,45 +333,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startNextComparison() {
-        if (comparisonsMade >= totalComparisons) { // Cek apakah semua perbandingan sudah selesai
+        if (comparisonsMade >= totalComparisons) {
             finishSorting();
             return;
         }
-
         const [idol1, idol2] = getRandomUniquePair();
         if (idol1 && idol2) {
             displayBattle(idol1, idol2);
         } else {
-            // Ini akan terjadi jika getRandomUniquePair tidak menemukan pasangan baru
-            // yang berarti semua kombinasi unik telah dibandingkan.
             finishSorting();
         }
     }
 
-
-    // --- Tampilkan Pertarungan Idola ---
     function displayBattle(idol1, idol2) {
         idol1Card.dataset.name = idol1.name;
         idol1Img.src = `images/${idol1.image}`;
-        idol1Name.textContent = translations[currentLang][idol1.name] || idol1.name; // Terjemahkan nama
+        idol1Name.textContent = translations[currentLang][idol1.name] || idol1.name;
 
         idol2Card.dataset.name = idol2.name;
         idol2Img.src = `images/${idol2.image}`;
-        idol2Name.textContent = translations[currentLang][idol2.name] || idol2.name; // Terjemahkan nama
+        idol2Name.textContent = translations[currentLang][idol2.name] || idol2.name;
     }
 
-    // --- Logika Pemilihan Pemenang/Seri ---
     function handleChoice(winnerName) {
         const idol1 = currentList.find(m => m.name === idol1Card.dataset.name);
         const idol2 = currentList.find(m => m.name === idol2Card.dataset.name);
-
         if (!idol1 || !idol2) {
             console.error('Idol not found for comparison.');
             return;
         }
-
         comparisonsMade++;
-
         if (winnerName === 'draw') {
             idol1.draws++;
             idol2.draws++;
@@ -329,12 +373,10 @@ document.addEventListener('DOMContentLoaded', () => {
             idol2.wins++;
             idol1.losses++;
         }
-
         updateProgressBar();
         startNextComparison();
     }
 
-    // --- Selesai Sorting ---
     function finishSorting() {
         sorterSection.classList.add('hidden');
         resultsSection.classList.remove('hidden');
@@ -344,29 +386,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (b.draws !== a.draws) return b.draws - a.draws;
             return a.name.localeCompare(b.name);
         });
-
-        updateResultsDisplay(); // Panggil fungsi terpisah untuk menampilkan hasil
+        updateResultsDisplay();
     }
 
-    // Fungsi untuk memperbarui tampilan hasil (dipanggil saat sorting selesai atau bahasa berubah)
     function updateResultsDisplay() {
         let titleKey = '';
         switch (currentCategory) {
-            case 'general':
-                titleKey = 'resultsGeneral';
-                break;
-            case 'talent':
-                titleKey = 'resultsTalent';
-                break;
-            case 'visual':
-                titleKey = 'resultsVisual';
-                break;
-            case 'comedian':
-                titleKey = 'resultsComedian';
-                break;
-            default:
-                titleKey = 'resultsGeneral'; // Fallback
-                break;
+            case 'general': titleKey = 'resultsGeneral'; break;
+            case 'talent': titleKey = 'resultsTalent'; break;
+            case 'visual': titleKey = 'resultsVisual'; break;
+            case 'comedian': titleKey = 'resultsComedian'; break;
+            default: titleKey = 'resultsGeneral'; break;
         }
         resultsTitle.textContent = translations[currentLang][titleKey];
 
@@ -378,23 +408,102 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span>${index + 1}.</span>
                 <img src="images/${member.image}" alt="${member.name}">
                 <p>${translations[currentLang][member.name] || member.name} (W:${member.wins} D:${member.draws} L:${member.losses})</p>
-            `; // Terjemahkan nama anggota di sini
+            `;
             resultsList.appendChild(resultItem);
         });
     }
 
+    // --- Senbatsu Formation Functions ---
+    function renderSenbatsuMembersGrid() {
+        senbatsuMembersGrid.innerHTML = ''; // Clear previous grid
+        members.forEach(member => {
+            const memberCard = document.createElement('div');
+            memberCard.classList.add('senbatsu-member-card');
+            memberCard.dataset.name = member.name;
+
+            const isSelected = selectedSenbatsuMembers.some(m => m.name === member.name);
+            if (isSelected) {
+                memberCard.classList.add('selected');
+            }
+
+            memberCard.innerHTML = `
+                <img src="images/${member.image}" alt="${member.name}">
+                <p class="member-name">${translations[currentLang][member.name] || member.name}</p>
+            `;
+            memberCard.addEventListener('click', () => toggleMemberSelection(member));
+            senbatsuMembersGrid.appendChild(memberCard);
+        });
+    }
+
+    function toggleMemberSelection(member) {
+        const memberCard = senbatsuMembersGrid.querySelector(`[data-name="${member.name}"]`);
+        const index = selectedSenbatsuMembers.findIndex(m => m.name === member.name);
+
+        if (index === -1) {
+            // Member not selected, try to add
+            if (selectedSenbatsuMembers.length < maxSenbatsuMembers) {
+                selectedSenbatsuMembers.push(member);
+                memberCard.classList.add('selected');
+            } else {
+                alert(translations[currentLang]['alertMaxMembers'].replace('{maxMembers}', maxSenbatsuMembers));
+            }
+        } else {
+            // Member is selected, remove it
+            selectedSenbatsuMembers.splice(index, 1);
+            memberCard.classList.remove('selected');
+        }
+        updateSelectedSenbatsuDisplay();
+    }
+
+    function updateSelectedSenbatsuDisplay() {
+        selectedSenbatsuList.innerHTML = ''; // Clear previous list
+        if (selectedSenbatsuMembers.length > 0) {
+            senbatsuSummary.classList.remove('hidden');
+            selectedSenbatsuMembers.forEach(member => {
+                const selectedItem = document.createElement('div');
+                selectedItem.classList.add('selected-member-item');
+                selectedItem.innerHTML = `
+                    <img src="images/${member.image}" alt="${member.name}">
+                    ${translations[currentLang][member.name] || member.name}
+                `;
+                selectedSenbatsuList.appendChild(selectedItem);
+            });
+        } else {
+            senbatsuSummary.classList.add('hidden');
+        }
+    }
+
+    function resetSenbatsuFormation() {
+        selectedSenbatsuMembers = [];
+        renderSenbatsuMembersGrid(); // Re-render to deselect all
+        updateSelectedSenbatsuDisplay(); // Hide summary
+    }
 
     // --- Event Listeners ---
+
+    // Language Buttons
+    langButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            setLanguage(e.target.dataset.lang);
+        });
+    });
+
+    // Navigation Buttons
+    navButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            showFlow(e.target.dataset.target);
+        });
+    });
+
+    // Sorter Events
     categoryButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             initializeSorter(e.target.dataset.category);
         });
     });
-
     idol1Card.addEventListener('click', () => handleChoice(idol1Card.dataset.name));
     idol2Card.addEventListener('click', () => handleChoice(idol2Card.dataset.name));
     drawButton.addEventListener('click', () => handleChoice('draw'));
-
     downloadResultsButton.addEventListener('click', () => {
         html2canvas(resultsSection, {
             useCORS: true,
@@ -402,12 +511,11 @@ document.addEventListener('DOMContentLoaded', () => {
             backgroundColor: '#ffffff'
         }).then(canvas => {
             const link = document.createElement('a');
-            link.download = `rain_tree_sorter_results_${currentLang}.png`; // Nama file sesuai bahasa
+            link.download = `rain_tree_sorter_results_${currentLang}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
     });
-
     shareResultsButton.addEventListener('click', () => {
         if (navigator.share) {
             html2canvas(resultsSection, {
@@ -422,7 +530,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             lastModified: new Date().getTime()
                         })
                     ];
-                    // Teks berbagi juga akan disesuaikan bahasanya
                     const shareText = `Lihat hasil sorting Rain Tree saya untuk kategori ${translations[currentLang][`category${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1)}`]}!`;
                     navigator.share({
                         files: filesArray,
@@ -437,24 +544,28 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Fitur berbagi tidak didukung di browser ini. Anda bisa mengunduh gambar dan membagikannya secara manual.');
         }
     });
-
     restartSorterButton.addEventListener('click', () => {
-        resultsSection.classList.add('hidden');
         categorySelectionSection.classList.remove('hidden');
+        sorterSection.classList.add('hidden'); // Ensure sorter section is hidden
+        resultsSection.classList.add('hidden');
         resultsList.innerHTML = '';
         comparedPairs.clear();
-        // Setel ulang teks progress bar ke bahasa saat ini
         updateProgressBar();
     });
 
-    // Event listener untuk tombol bahasa
-    langButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            setLanguage(e.target.dataset.lang);
-        });
+    // Senbatsu Events
+    senbatsuSizeInput.addEventListener('change', (e) => {
+        maxSenbatsuMembers = parseInt(e.target.value);
+        if (selectedSenbatsuMembers.length > maxSenbatsuMembers) {
+            selectedSenbatsuMembers = selectedSenbatsuMembers.slice(0, maxSenbatsuMembers); // Truncate if size reduces
+            updateSelectedSenbatsuDisplay();
+            renderSenbatsuMembersGrid(); // Update card selected states
+        }
     });
+    resetSenbatsuButton.addEventListener('click', resetSenbatsuFormation);
 
-    // Inisialisasi: setel bahasa default saat halaman dimuat
-    setLanguage('id'); // Mulai dengan Bahasa Indonesia
-    updateProgressBar();
+    // Initial Setup
+    setLanguage('id'); // Start with Bahasa Indonesia
+    showFlow('sorter-flow'); // Show sorter by default
+    renderSenbatsuMembersGrid(); // Render senbatsu grid on load
 });
