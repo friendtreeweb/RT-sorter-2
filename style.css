@@ -1,33 +1,296 @@
- /* --- Navigation Menu Styles --- */
-.navigation-menu {
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e0f2f1; /* Light teal background */
+    color: #333;
+    line-height: 1.6;
+    display: flex; /* Untuk menengahkan container di halaman tunggal */
+    justify-content: center;
+    align-items: flex-start; /* Ubah ke flex-start agar konten tidak selalu di tengah vertikal */
+    min-height: 100vh; /* Pastikan tinggi minimal 100% viewport */
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #00796b; /* Darker teal */
     margin-bottom: 25px;
+    font-size: 2.5em;
+    letter-spacing: 0.5px;
+}
+
+h2 {
+    color: #00897b; /* Medium teal */
+    margin-top: 25px;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #b2dfdb; /* Light teal border */
+    border-radius: 10px;
+    background-color: #f0fdfc; /* Very light teal */
+}
+
+.hidden {
+    display: none;
+}
+
+/* --- Language Selector --- */
+.language-selector {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.lang-button {
+    background-color: #f8fcfb;
+    color: #00796b;
+    border: 1px solid #00796b;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+    margin-left: 5px;
+}
+
+.lang-button:hover {
+    background-color: #e0f2f1;
+}
+
+.lang-button.active {
+    background-color: #00796b;
+    color: white;
+    font-weight: bold;
+}
+
+/* --- Category Selection --- */
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.category-buttons button {
+    background-color: #4db6ac; /* Medium light teal */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    min-width: 120px;
+}
+
+.category-buttons button:hover {
+    background-color: #26a69a; /* Darker medium teal */
+    transform: translateY(-2px);
+}
+
+/* --- Sorter Section --- */
+.progress-bar-container {
+    width: 90%;
+    max-width: 500px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    height: 20px;
+    margin: 20px auto 10px auto;
+    overflow: hidden;
+}
+
+#progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #4db6ac;
+    border-radius: 10px;
+    transition: width 0.3s ease-in-out;
+}
+
+#progress-text {
+    margin-bottom: 25px;
+    font-weight: bold;
+    color: #555;
+}
+
+.battle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.idol-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    padding: 15px;
+    border: 3px solid #b2dfdb;
+    border-radius: 15px;
+    cursor: pointer;
+    background-color: #f8fcfb;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.idol-card:hover {
+    border-color: #4db6ac;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.idol-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 2px solid #eee;
+}
+
+.idol-card .idol-name {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    word-break: break-word;
+}
+
+.vs {
+    font-size: 2em;
+    font-weight: bold;
+    color: #00796b;
+}
+
+.controls button {
+    background-color: #607d8b; /* Blue-grey */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.controls button:hover {
+    background-color: #455a64;
+}
+
+/* --- Results Section --- */
+#results-title {
+    color: #00796b;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+#results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    max-width: 450px;
+    padding: 10px 15px;
+    background-color: #e0f2f1;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.result-item:hover {
+    transform: translateX(5px);
+}
+
+.result-item span {
+    font-weight: bold;
+    color: #00796b;
+    margin-right: 15px;
+    font-size: 1.2em;
+    min-width: 25px; /* Untuk penomoran yang rapi */
+    text-align: right;
+}
+
+.result-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 1px solid #b2dfdb;
+}
+
+.result-item p {
+    margin: 0;
+    font-size: 1em;
+    color: #333;
+    flex-grow: 1; /* Agar teks mengisi sisa ruang */
+    text-align: left;
+}
+
+.share-download-options {
+    margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     gap: 15px;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 15px;
+    flex-wrap: wrap;
 }
 
-.navigation-menu .nav-button {
-    background-color: #f0fdfc; /* Light teal background */
-    color: #00796b;
-    border: 1px solid #00796b;
+.share-download-options button {
+    background-color: #00796b;
+    color: white;
+    border: none;
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1em;
-    font-weight: bold;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
-.navigation-menu .nav-button:hover {
-    background-color: #e0f2f1;
+.share-download-options button:hover {
+    background-color: #005f56;
 }
 
-.navigation-menu .nav-button.active {
-    background-color: #00796b; /* Main teal color for active */
+#restart-sorter {
+    background-color: #f44336; /* Merah untuk restart */
     color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+#restart-sorter:hover {
+    background-color: #d32f2f;
 }
 
 /* --- Senbatsu Formation Styles --- */
@@ -169,18 +432,107 @@
     background-color: #d32f2f;
 }
 
-/* Responsive adjustments for Senbatsu */
-@media (max-width: 600px) {
-    .navigation-menu {
-        flex-direction: column; /* Stack nav buttons vertically */
+/* Tombol Kembali ke Menu Utama */
+.back-home-button {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.back-home-button button {
+    background-color: #607d8b; /* Abu-abu kebiruan */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.back-home-button button:hover {
+    background-color: #455a64; /* Abu-abu kebiruan lebih gelap */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 25px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .battle-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .idol-card {
+        width: 120px;
+        padding: 10px;
+    }
+
+    .idol-card img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .idol-card .idol-name {
+        font-size: 1em;
+    }
+
+    .vs {
+        font-size: 1.5em;
+    }
+
+    .category-buttons button {
+        padding: 10px 20px;
+        font-size: 1em;
+        min-width: unset;
+        width: 45%; /* Dua tombol per baris */
+    }
+
+    .result-item {
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .result-item span {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .result-item img {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .result-item p {
+        text-align: center;
+    }
+
+    .share-download-options {
+        flex-direction: column;
         gap: 10px;
     }
 
-    .navigation-menu .nav-button {
+    .share-download-options button,
+    #restart-sorter,
+    #reset-senbatsu {
         width: 90%;
         margin: 0 auto;
+        font-size: 0.95em;
     }
 
+    /* Senbatsu specific responsive */
     .senbatsu-members-grid {
         grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Smaller cards on mobile */
         gap: 10px;
@@ -205,10 +557,4 @@
         width: 50px;
         font-size: 0.9em;
     }
-
-    #reset-senbatsu {
-        width: 90%;
-        font-size: 0.95em;
-        margin-top: 15px;
-    }
-}
+} 
