@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
             selectMemberPrompt: 'Pilih Member',
             noMemberSelected: 'Kosongkan Slot',
             emptySlotText: 'Slot Kosong',
+            mainMenuSorter: 'Idol Sorter', // Untuk index.html
+            mainMenuSenbatsu: 'Formasi Senbatsu', // Untuk index.html
 
             // --- Terjemahan untuk Matchmaker ---
             pageTitleMatchmaker: 'Ramalan Cinta RT',
@@ -58,6 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
             calculateMatchButton: 'Hitung Kecocokan Takdir!',
             resultCardTitle: 'Hasil Ramalan Cintamu',
             tryAgainButton: 'Coba Lagi',
+            yourImageAltText: 'Gambar Anda', // Baru: Alt text untuk gambar pengguna
+            mainMenuMatchmaker: 'Ramalan Cinta RT', // Untuk index.html
             // Kalimat dramatis
             phraseLowLow: 'Jalan kalian masih terjal, butuh perjuangan ekstra!',
             phraseLow: 'Mungkin perlu sedikit bumbu takdir lagi...',
@@ -110,6 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
             selectMemberPrompt: 'Select Member',
             noMemberSelected: 'Clear Slot',
             emptySlotText: 'Empty Slot',
+            mainMenuSorter: 'Idol Sorter', // Untuk index.html
+            mainMenuSenbatsu: 'Senbatsu Formation', // Untuk index.html
 
             // --- Terjemahan untuk Matchmaker ---
             pageTitleMatchmaker: 'Rain Tree Love Fortune',
@@ -120,6 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
             calculateMatchButton: 'Calculate Destiny Match!',
             resultCardTitle: 'Your Love Fortune Result',
             tryAgainButton: 'Try Again',
+            yourImageAltText: 'Your Image', // Baru: Alt text untuk gambar pengguna
+            mainMenuMatchmaker: 'Rain Tree Love Fortune', // Untuk index.html
             // Kalimat dramatis
             phraseLowLow: 'Your path is still rough, extra effort needed!',
             phraseLow: 'Maybe a little more destiny spice is needed...',
@@ -172,6 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
             selectMemberPrompt: 'メンバーを選択',
             noMemberSelected: 'スロットをクリア',
             emptySlotText: '空スロット',
+            mainMenuSorter: 'アイドルソート', // Untuk index.html
+            mainMenuSenbatsu: '選抜フォーメーション', // Untuk index.html
 
             // --- Terjemahan untuk Matchmaker ---
             pageTitleMatchmaker: 'Rain Tree 恋愛占い',
@@ -182,6 +192,8 @@ document.addEventListener('DOMContentLoaded', () => {
             calculateMatchButton: '運命の相性を計算！',
             resultCardTitle: 'あなたの恋愛占い結果',
             tryAgainButton: 'もう一度試す',
+            yourImageAltText: 'あなたの画像', // Baru: Alt text untuk gambar pengguna
+            mainMenuMatchmaker: 'Rain Tree 恋愛占い', // Untuk index.html
             // Kalimat dramatis
             phraseLowLow: '二人の道はまだ険しい、さらなる努力が必要！',
             phraseLow: 'もう少し運命のスパイスが必要かも…',
@@ -402,19 +414,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return pair;
             }
             return [null, null];
-        }
-
-        function startNextComparison() {
-            if (comparisonsMade >= totalComparisons) {
-                finishSorting();
-                return;
-            }
-            const [idol1, idol2] = getRandomUniquePair();
-            if (idol1 && idol2) {
-                displayBattle(idol1, idol2);
-            } else {
-                finishSorting();
-            }
         }
 
         function displayBattle(idol1, idol2) {
@@ -776,6 +775,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const memberSelect = document.getElementById('member-select');
         const calculateMatchButton = document.getElementById('calculate-match-button');
         const matchResultCard = document.getElementById('match-result-card');
+        const displayYourImage = document.getElementById('display-your-image'); // Baru: Element gambar pengguna
         const displayYourName = document.getElementById('display-your-name');
         const displayMemberImage = document.getElementById('display-member-image');
         const displayMemberName = document.getElementById('display-member-name');
@@ -784,7 +784,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const downloadMatchResultButton = document.getElementById('download-match-result');
         const tryAgainButton = document.getElementById('try-again-button');
 
-        if (!yourNameInput || !memberSelect || !calculateMatchButton || !matchResultCard || !displayYourName || !displayMemberImage || !displayMemberName || !displayMatchHearts || !displayMatchPhrase || !downloadMatchResultButton || !tryAgainButton) {
+        if (!yourNameInput || !memberSelect || !calculateMatchButton || !matchResultCard || !displayYourImage || !displayYourName || !displayMemberImage || !displayMemberName || !displayMatchHearts || !displayMatchPhrase || !downloadMatchResultButton || !tryAgainButton) {
             console.error("ERROR: One or more critical Matchmaker DOM elements not found. Matchmaker script might not function correctly.");
             return;
         }
@@ -832,6 +832,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function displayMatchResult(yourName, member, percentage) {
             displayYourName.textContent = yourName;
+            
+            // Set user's image (always placeholder_clear.png)
+            if (displayYourImage) {
+                displayYourImage.src = 'images/placeholder_clear.png';
+                displayYourImage.alt = translations[currentLang]['yourImageAltText'];
+            }
+
             displayMemberImage.src = `images/${member.image}`;
             displayMemberImage.alt = member.name; // Set alt text for accessibility
             displayMemberName.textContent = translations[currentLang][member.name] || member.name;
@@ -888,7 +895,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 cardToCapture.style.top = '-9999px'; // Move it off-screen
                 cardToCapture.style.left = '-9999px';
                 cardToCapture.style.display = 'flex'; // Ensure it's rendered for html2canvas
-                cardToCapture.querySelector('.match-result-actions').remove(); // Remove buttons from clone
+                
+                // Hapus tombol aksi dari klon sebelum mengambil screenshot
+                const actions = cardToCapture.querySelector('.match-result-actions');
+                if (actions) {
+                    actions.remove();
+                }
 
                 document.body.appendChild(cardToCapture);
 
