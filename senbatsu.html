@@ -27,7 +27,7 @@
             border: 2px dashed #4db6ac; /* Border putus-putus untuk slot kosong */
             border-radius: 8px;
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Ubah ke kolom untuk gambar dan nama */
             justify-content: center;
             align-items: center;
             text-align: center;
@@ -37,6 +37,7 @@
             position: relative; /* Untuk penempatan dropdown */
             overflow: hidden; /* Pastikan gambar tidak keluar */
             box-sizing: border-box; /* Pastikan padding dan border tidak menambah ukuran */
+            padding: 5px; /* Tambahkan padding agar tidak terlalu mepet */
         }
 
         .formation-slot:hover {
@@ -51,7 +52,7 @@
         }
 
         .formation-slot.filled img {
-            width: 70px; /* Lebih kecil agar nama muat */
+            width: 70px; /* Ukuran gambar */
             height: 70px;
             border-radius: 50%;
             object-fit: cover;
@@ -59,52 +60,16 @@
             margin-bottom: 5px; /* Jarak antara gambar dan nama */
         }
 
-        .formation-slot.filled .member-name {
+        .formation-slot .member-name { /* Gaya untuk nama di dalam kotak */
             font-size: 0.8em;
             font-weight: bold;
             color: #333;
             word-break: break-word; /* Memastikan nama panjang tidak keluar kotak */
             max-width: 90%; /* Membatasi lebar teks */
-            white-space: nowrap;
+            white-space: nowrap; /* Mencegah nama memecah baris */
             overflow: hidden;
             text-overflow: ellipsis; /* Menambahkan elipsis jika terlalu panjang */
         }
-
-        /* NEW: Display below grid */
-        #members-below-grid {
-            margin: 20px auto;
-            max-width: 800px;
-            padding: 15px;
-            border: 1px solid #c8e6c9;
-            border-radius: 8px;
-            background-color: #e8f5e9;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.9em;
-            color: #388e3c;
-            min-height: 50px; /* Agar terlihat ada kotak */
-            text-align: center;
-        }
-
-        #members-below-grid .member-display-item {
-            padding: 5px 10px;
-            background-color: #a5d6a7;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        #members-below-grid .member-display-item img {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
 
         /* POP-UP OVERLAY */
         .popup-overlay {
@@ -219,7 +184,7 @@
                 width: 50px;
                 height: 50px;
             }
-            .formation-slot.filled .member-name {
+            .formation-slot .member-name { /* Perhatikan perubahan di sini juga */
                 font-size: 0.65em;
             }
             #senbatsu-formation-grid {
@@ -235,14 +200,6 @@
             .member-selector-popup .member-item img {
                 width: 30px;
                 height: 30px;
-            }
-            #members-below-grid .member-display-item {
-                font-size: 0.8em;
-                padding: 3px 8px;
-            }
-            #members-below-grid .member-display-item img {
-                width: 20px;
-                height: 20px;
             }
         }
     </style>
@@ -271,13 +228,7 @@
             <div id="senbatsu-formation-grid">
                 </div>
 
-            <div id="members-below-grid">
-                <p data-key="noMemberSelectedInList">Tidak ada member yang dipilih.</p>
-            </div>
-            <div class="senbatsu-summary">
-                <h3 data-key="senbatsuSummaryTitle">Formasi Pilihanmu:</h3>
-                <div id="selected-senbatsu-list">
-                    </div>
+            <div style="text-align: center; margin-top: 20px;">
                 <button id="download-senbatsu" data-key="downloadResults">Unduh Hasil (Gambar)</button>
                 <button id="reset-senbatsu" data-key="resetSenbatsuButton">Reset Formasi</button>
             </div>
