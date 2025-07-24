@@ -46,6 +46,8 @@
             resetSenbatsuButton: 'Reset Formasi',
             alertMaxMembers: 'Jumlah member formasi sudah penuh ({maxMembers} member).',
             alertMinMembers: 'Pilih setidaknya satu member.',
+            selectMemberPrompt: 'Pilih Member', // Tambahan untuk senbatsu
+            noMemberSelected: 'Tidak ada member yang dipilih.', // Tambahan untuk senbatsu
             // Terjemahan nama anggota (Romaji untuk ID)
             'Ayase Kotori': 'Ayase Kotori',
             'Endo Rino': 'Endo Rino',
@@ -89,6 +91,8 @@
             resetSenbatsuButton: 'Reset Formation',
             alertMaxMembers: 'Maximum formation members reached ({maxMembers} members).',
             alertMinMembers: 'Please select at least one member.',
+            selectMemberPrompt: 'Select Member',
+            noMemberSelected: 'No member selected.',
             // Terjemahan nama anggota (Romaji untuk EN)
             'Ayase Kotori': 'Ayase Kotori',
             'Endo Rino': 'Endo Rino',
@@ -132,6 +136,8 @@
             resetSenbatsuButton: 'フォーメーションをリセット',
             alertMaxMembers: 'フォーメーションの最大人数に達しました（{maxMembers}人）。',
             alertMinMembers: '少なくとも一人メンバーを選択してください。',
+            selectMemberPrompt: 'メンバーを選択',
+            noMemberSelected: 'メンバーが選択されていません。',
             // Terjemahan nama anggota dalam Kanji/Kana yang benar
             'Asamiya Hinata': '朝宮日向',
             'Ayase Kotori': '綾瀬ことり',
@@ -159,6 +165,14 @@
     const pageTitleElement = document.querySelector('title');
     const langButtons = document.querySelectorAll('.language-selector .lang-button');
 
+    // Tambahkan event listener untuk tombol bahasa di sini, karena tombol ini ada di kedua halaman
+    langButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            setLanguage(button.dataset.lang);
+        });
+    });
+
+
     // --- General Functions ---
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -174,24 +188,21 @@
 
     // --- Translation Function ---
     function setLanguage(lang) {
+        console.log(`Setting language to: ${lang}`);
         currentLang = lang;
         langButtons.forEach(button => button.classList.remove('active'));
-        document.querySelector(`.lang-button[data-lang="${lang}"]`).classList.add('active');
+        document.querySelector(`.lang-button[data-lang="${lang}"]`)?.classList.add('active'); // Gunakan optional chaining
 
         document.querySelectorAll('[data-key]').forEach(element => {
             const key = element.dataset.key;
-            // Gunakan terjemahan dari objek 'translations' atau default ke teks elemen
             if (translations[currentLang] && translations[currentLang][key]) {
                 if (element.tagName === 'TITLE') {
-                    // Set title secara khusus untuk halaman sorter/senbatsu
                     if (window.location.pathname.includes('sorter.html')) {
                         element.textContent = translations[currentLang]['pageTitle'];
                     } else if (window.location.pathname.includes('senbatsu.html')) {
-                        // Untuk halaman senbatsu, gunakan judul yang berbeda dari "pageTitle" di terjemahan
-                        // Kita bisa langsung ambil dari atribut title di HTML senbatsu.html
-                        element.textContent = element.dataset.key === 'pageTitle' ? translations[currentLang]['pageTitle'].replace('Idola Sorter', 'Formasi Senbatsu') : translations[currentLang][key];
+                        element.textContent = translations[currentLang]['pageTitle'].replace('Idola Sorter', 'Formasi Senbatsu'); // Sesuaikan judul halaman senbatsu
                     } else {
-                        element.textContent = translations[currentLang][key];
+                        element.textContent = translations[currentLang][key]; // Untuk halaman lain (misal index.html)
                     }
                 } else {
                     element.textContent = translations[currentLang][key];
@@ -199,43 +210,48 @@
             }
         });
 
-        // Logika spesifik untuk halaman sorter
+        // Logika spesifik untuk halaman sorter (jika elemen-elemennya ada di DOM)
         if (window.location.pathname.includes('sorter.html')) {
             const sorterSection = document.getElementById('sorter-section');
             const idol1Card = document.getElementById('idol-1');
             const idol2Card = document.getElementById('idol-2');
-            const idol1Name = idol1Card.querySelector('.idol-name');
-            const idol2Name = idol2Card.querySelector('.idol-name');
-            const resultsSection = document.getElementById('results-section');
+            if (sorterSection && idol1Card && idol2Card) { // Pastikan elemen ada sebelum mencoba mengakses
+                const idol1Name = idol1Card.querySelector('.idol-name');
+                const idol2Name = idol2Card.querySelector('.idol-name');
+                const resultsSection = document.getElementById('results-section');
 
-            if (!sorterSection.classList.contains('hidden') && idol1Card.dataset.name && idol2Card.dataset.name) {
-                idol1Name.textContent = translations[currentLang][idol1Card.dataset.name] || idol1Card.dataset.name;
-                idol2Name.textContent = translations[currentLang][idol2Card.dataset.name] || idol2Card.dataset.name;
+                if (!sorterSection.classList.contains('hidden') && idol1Card.dataset.name && idol2Card.dataset.name) {
+                    // Update names in battle if visible
+                    if(idol1Name) idol1Name.textContent = translations[currentLang][idol1Card.dataset.name] || idol1Card.dataset.name;
+                    if(idol2Name) idol2Name.textContent = translations[currentLang][idol2Card.dataset.name] || idol2Card.dataset.name;
+                }
+                if (resultsSection && !resultsSection.classList.contains('hidden')) {
+                    updateResultsDisplay(); // Re-render results to update names
+                }
+                updateProgressBar();
             }
-            if (!resultsSection.classList.contains('hidden')) {
-                updateResultsDisplay();
-            }
-            updateProgressBar();
         }
-        // Logika spesifik untuk halaman senbatsu
+        // Logika spesifik untuk halaman senbatsu (jika elemen-elemennya ada di DOM)
         else if (window.location.pathname.includes('senbatsu.html')) {
-            // Karena renderSenbatsuMembersGrid dan updateSelectedSenbatsuDisplay
-            // juga dipanggil saat DOMContentLoaded, kita tidak perlu memanggilnya
-            // di sini lagi untuk kasus perubahan bahasa saja, kecuali ada data-key.
-            // Panggil saja jika ada elemen yang perlu diupdate teksnya secara dinamis
-            // yang tidak tercakup oleh data-key.
-            renderSenbatsuMembersGrid(); // Re-render grid to update names
-            updateSelectedSenbatsuDisplay(); // Update selected names
+            const senbatsuFormationGrid = document.getElementById('senbatsu-formation-grid');
+            if (senbatsuFormationGrid) { // Pastikan elemen ada sebelum mencoba mengakses
+                // Re-render formation grid to update names
+                generateFormationGrid(parseInt(document.getElementById('senbatsu-size').value));
+                updateSelectedSenbatsuDisplay(); // Update selected names in summary
+            }
         }
     }
 
     // --- Logic for Sorter Page (`sorter.html`) ---
     if (window.location.pathname.includes('sorter.html')) {
+        console.log("Loading Sorter Page script...");
         let currentList = [];
         let comparisonsMade = 0;
         let totalComparisons = 0;
-        const comparedPairs = new Set(); // Untuk melacak pasangan yang sudah dibandingkan
+        const comparedPairs = new Set();
+        let currentCategory = ''; // Pindahkan deklarasi ke lingkup sorter
 
+        // Dapatkan elemen DOM sorter
         const categorySelectionSection = document.getElementById('category-selection');
         const sorterSection = document.getElementById('sorter-section');
         const resultsSection = document.getElementById('results-section');
@@ -244,19 +260,25 @@
         const progressText = document.getElementById('progress-text');
         const idol1Card = document.getElementById('idol-1');
         const idol2Card = document.getElementById('idol-2');
-        const idol1Img = idol1Card.querySelector('img');
-        const idol1Name = idol1Card.querySelector('.idol-name');
-        const idol2Img = idol2Card.querySelector('img');
-        const idol2Name = idol2Card.querySelector('.idol-name');
+        const idol1Img = idol1Card?.querySelector('img'); // Gunakan optional chaining
+        const idol1Name = idol1Card?.querySelector('.idol-name'); // Gunakan optional chaining
+        const idol2Img = idol2Card?.querySelector('img'); // Gunakan optional chaining
+        const idol2Name = idol2Card?.querySelector('.idol-name'); // Gunakan optional chaining
         const drawButton = document.getElementById('draw-button');
         const resultsTitle = document.getElementById('results-title');
         const resultsList = document.getElementById('results-list');
         const downloadResultsButton = document.getElementById('download-results');
         const shareResultsButton = document.getElementById('share-results');
         const restartSorterButton = document.getElementById('restart-sorter');
-        let currentCategory = ''; // Pindahkan deklarasi ke lingkup sorter
+
+        // Pastikan semua elemen penting ditemukan sebelum menambahkan event listener
+        if (!categorySelectionSection || !sorterSection || !resultsSection || categoryButtons.length === 0 || !idol1Card || !idol2Card || !idol1Img || !idol1Name || !idol2Img || !idol2Name || !drawButton || !resultsTitle || !resultsList || !downloadResultsButton || !shareResultsButton || !restartSorterButton) {
+            console.error("ERROR: One or more critical Sorter DOM elements not found. Sorter script might not function correctly.");
+            // Jangan `return` di sini, biarkan script mencoba berjalan, tapi perhatikan error di konsol
+        }
 
         function initializeSorter(category) {
+            console.log(`Initializing Sorter for category: ${category}`);
             currentCategory = category;
             currentList = members.map(member => ({ ...member, wins: 0, losses: 0, draws: 0 }));
             shuffleArray(currentList);
@@ -264,21 +286,22 @@
             totalComparisons = calculateTotalComparisons(currentList.length);
             updateProgressBar();
 
-            categorySelectionSection.classList.add('hidden');
-            sorterSection.classList.remove('hidden');
+            if(categorySelectionSection) categorySelectionSection.classList.add('hidden');
+            if(sorterSection) sorterSection.classList.remove('hidden');
+            console.log("Category selection hidden, sorter section shown.");
 
             startNextComparison();
         }
 
         function updateProgressBar() {
             if (totalComparisons === 0) {
-                progressBar.style.width = '100%';
-                progressText.textContent = `${translations[currentLang]['progressText']} Selesai!`;
+                if (progressBar) progressBar.style.width = '100%';
+                if (progressText) progressText.textContent = `${translations[currentLang]['progressText']} Selesai!`;
                 return;
             }
             const progressPercentage = (comparisonsMade / totalComparisons) * 100;
-            progressBar.style.width = `${progressPercentage}%`;
-            progressText.textContent = `${translations[currentLang]['progressText']} ${comparisonsMade} / ${totalComparisons}`;
+            if (progressBar) progressBar.style.width = `${progressPercentage}%`;
+            if (progressText) progressText.textContent = `${translations[currentLang]['progressText']} ${comparisonsMade} / ${totalComparisons}`;
         }
 
         function getRandomUniquePair() {
@@ -315,6 +338,10 @@
         }
 
         function displayBattle(idol1, idol2) {
+            if (!idol1Card || !idol2Card || !idol1Img || !idol1Name || !idol2Img || !idol2Name) {
+                console.error("Display Battle: One or more idol elements are null, cannot display battle.");
+                return;
+            }
             idol1Card.dataset.name = idol1.name;
             idol1Img.src = `images/${idol1.image}`;
             idol1Name.textContent = translations[currentLang][idol1.name] || idol1.name;
@@ -322,13 +349,14 @@
             idol2Card.dataset.name = idol2.name;
             idol2Img.src = `images/${idol2.image}`;
             idol2Name.textContent = translations[currentLang][idol2.name] || idol2.name;
+            console.log(`Displaying battle: ${idol1.name} VS ${idol2.name}`);
         }
 
         function handleChoice(winnerName) {
-            const idol1 = currentList.find(m => m.name === idol1Card.dataset.name);
-            const idol2 = currentList.find(m => m.name === idol2Card.dataset.name);
+            const idol1 = currentList.find(m => m.name === idol1Card?.dataset.name); // Optional chaining
+            const idol2 = currentList.find(m => m.name === idol2Card?.dataset.name); // Optional chaining
             if (!idol1 || !idol2) {
-                console.error('Idol not found for comparison.');
+                console.error('Idol not found for comparison in handleChoice. Skipping...');
                 return;
             }
             comparisonsMade++;
@@ -347,8 +375,9 @@
         }
 
         function finishSorting() {
-            sorterSection.classList.add('hidden');
-            resultsSection.classList.remove('hidden');
+            if (sorterSection) sorterSection.classList.add('hidden');
+            if (resultsSection) resultsSection.classList.remove('hidden');
+            console.log("Sorting finished, showing results.");
 
             currentList.sort((a, b) => {
                 if (b.wins !== a.wins) return b.wins - a.wins;
@@ -359,6 +388,10 @@
         }
 
         function updateResultsDisplay() {
+            if (!resultsTitle || !resultsList) {
+                console.error("Results display elements not found, cannot update results.");
+                return;
+            }
             let titleKey = '';
             switch (currentCategory) {
                 case 'general': titleKey = 'resultsGeneral'; break;
@@ -380,6 +413,7 @@
                 `;
                 resultsList.appendChild(resultItem);
             });
+            console.log("Sorter results display updated.");
         }
 
         // --- Sorter Event Listeners ---
@@ -388,23 +422,27 @@
                 initializeSorter(e.target.dataset.category);
             });
         });
-        idol1Card.addEventListener('click', () => handleChoice(idol1Card.dataset.name));
-        idol2Card.addEventListener('click', () => handleChoice(idol2Card.dataset.name));
-        drawButton.addEventListener('click', () => handleChoice('draw'));
-        downloadResultsButton.addEventListener('click', () => {
-            html2canvas(resultsSection, {
-                useCORS: true,
-                scale: 2,
-                backgroundColor: '#ffffff'
-            }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = `rain_tree_sorter_results_${currentLang}.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            });
+        idol1Card?.addEventListener('click', () => handleChoice(idol1Card.dataset.name));
+        idol2Card?.addEventListener('click', () => handleChoice(idol2Card.dataset.name));
+        drawButton?.addEventListener('click', () => handleChoice('draw'));
+        downloadResultsButton?.addEventListener('click', () => {
+            if (resultsSection) {
+                html2canvas(resultsSection, {
+                    useCORS: true,
+                    scale: 2,
+                    backgroundColor: '#ffffff'
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `rain_tree_sorter_results_${currentLang}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                });
+            } else {
+                console.error("Results section not found for download.");
+            }
         });
-        shareResultsButton.addEventListener('click', () => {
-            if (navigator.share) {
+        shareResultsButton?.addEventListener('click', () => {
+            if (navigator.share && resultsSection) {
                 html2canvas(resultsSection, {
                     useCORS: true,
                     scale: 2,
@@ -429,81 +467,217 @@
                 });
             } else {
                 alert('Fitur berbagi tidak didukung di browser ini. Anda bisa mengunduh gambar dan membagikannya secara manual.');
+                console.error("Share feature not supported or results section not found.");
             }
         });
-        restartSorterButton.addEventListener('click', () => {
-            categorySelectionSection.classList.remove('hidden');
-            sorterSection.classList.add('hidden');
-            resultsSection.classList.add('hidden');
-            resultsList.innerHTML = '';
+        restartSorterButton?.addEventListener('click', () => {
+            if (categorySelectionSection) categorySelectionSection.classList.remove('hidden');
+            if (sorterSection) sorterSection.classList.add('hidden');
+            if (resultsSection) resultsSection.classList.add('hidden');
+            if (resultsList) resultsList.innerHTML = '';
             comparedPairs.clear();
             updateProgressBar();
+            console.log("Sorter restarted.");
         });
 
         // Initialize sorter specific language settings
         setLanguage('id'); // Default language for sorter page
+        console.log("Sorter page script fully executed.");
     }
 
     // --- Logic for Senbatsu Page (`senbatsu.html`) ---
     else if (window.location.pathname.includes('senbatsu.html')) {
-        let selectedSenbatsuMembers = [];
+        console.log("Loading Senbatsu Page script...");
+        let senbatsuFormation = []; // Akan menyimpan objek member di setiap slot, atau null jika kosong
         let maxSenbatsuMembers;
 
+        // Dapatkan elemen DOM senbatsu
         const senbatsuSizeInput = document.getElementById('senbatsu-size');
-        const senbatsuMembersGrid = document.querySelector('.senbatsu-members-grid');
+        const senbatsuFormationGrid = document.getElementById('senbatsu-formation-grid'); // Mengubah dari senbatsuMembersGrid
         const senbatsuSummary = document.querySelector('.senbatsu-summary');
         const selectedSenbatsuList = document.getElementById('selected-senbatsu-list');
         const resetSenbatsuButton = document.getElementById('reset-senbatsu');
+        const downloadSenbatsuButton = document.getElementById('download-senbatsu'); // Tombol download baru
 
-        // Set initial maxSenbatsuMembers from input
-        maxSenbatsuMembers = parseInt(senbatsuSizeInput.value);
-
-        function renderSenbatsuMembersGrid() {
-            senbatsuMembersGrid.innerHTML = ''; // Clear previous grid
-            members.forEach(member => {
-                const memberCard = document.createElement('div');
-                memberCard.classList.add('senbatsu-member-card');
-                memberCard.dataset.name = member.name;
-
-                const isSelected = selectedSenbatsuMembers.some(m => m.name === member.name);
-                if (isSelected) {
-                    memberCard.classList.add('selected');
-                }
-
-                memberCard.innerHTML = `
-                    <img src="images/${member.image}" alt="${member.name}">
-                    <p class="member-name">${translations[currentLang][member.name] || member.name}</p>
-                `;
-                memberCard.addEventListener('click', () => toggleMemberSelection(member));
-                senbatsuMembersGrid.appendChild(memberCard);
-            });
+        // Pastikan semua elemen penting ditemukan sebelum menambahkan event listener
+        if (!senbatsuSizeInput || !senbatsuFormationGrid || !senbatsuSummary || !selectedSenbatsuList || !resetSenbatsuButton || !downloadSenbatsuButton) {
+            console.error("ERROR: One or more critical Senbatsu DOM elements not found. Senbatsu script might not function correctly.");
+            // Jangan `return` di sini, biarkan script mencoba berjalan, tapi perhatikan error di konsol
+        } else {
+             // Set initial maxSenbatsuMembers from input, hanya jika input ditemukan
+            maxSenbatsuMembers = parseInt(senbatsuSizeInput.value);
+            // Inisialisasi formasi dengan slot kosong
+            senbatsuFormation = Array(maxSenbatsuMembers).fill(null);
         }
 
-        function toggleMemberSelection(member) {
-            const memberCard = senbatsuMembersGrid.querySelector(`[data-name="${member.name}"]`);
-            const index = selectedSenbatsuMembers.findIndex(m => m.name === member.name);
+        // Fungsi untuk menghitung jumlah baris dan member per baris (formasi kerucut)
+        function calculateFormationRows(totalMembers) {
+            const rows = [];
+            let remaining = totalMembers;
+            let currentTier = 1; // Mulai dari depan
 
-            if (index === -1) {
-                // Member not selected, try to add
-                if (selectedSenbatsuMembers.length < maxSenbatsuMembers) {
-                    selectedSenbatsuMembers.push(member);
-                    memberCard.classList.add('selected');
-                } else {
-                    alert(translations[currentLang]['alertMaxMembers'].replace('{maxMembers}', maxSenbatsuMembers));
+            // Logic for a general conical shape (e.g., 7 -> 3, 4)
+            // This can be customized for specific patterns
+            if (totalMembers === 1) return [[1]];
+            if (totalMembers === 2) return [[1], [1]];
+            if (totalMembers === 3) return [[1], [2]];
+            if (totalMembers === 4) return [[2], [2]];
+            if (totalMembers === 5) return [[2], [3]];
+            if (totalMembers === 6) return [[2], [2], [2]];
+            if (totalMembers === 7) return [[3], [4]]; // Depan 3, Belakang 4
+            if (totalMembers === 8) return [[2], [3], [3]];
+            if (totalMembers === 9) return [[3], [3], [3]];
+            if (totalMembers === 10) return [[3], [3], [4]];
+            if (totalMembers === 11) return [[3], [4], [4]];
+            if (totalMembers === 12) return [[3], [3], [3], [3]];
+            if (totalMembers === 13) return [[3], [4], [3], [3]];
+            if (totalMembers === 14) return [[3], [4], [4], [3]];
+            if (totalMembers === 15) return [[3], [4], [4], [4]];
+            if (totalMembers === 16) return [[4], [4], [4], [4]];
+            if (totalMembers === 17) return [[5], [4], [4], [4]]; // Contoh jika ingin lebih besar
+
+            // Default fallback for other sizes or more linear distribution
+            while (remaining > 0) {
+                let rowSize = Math.ceil(remaining / (totalMembers / currentTier)); // Example logic
+                if (rowSize > remaining) rowSize = remaining;
+                if (rowSize === 0) break; // Avoid infinite loops for tiny remaining
+
+                rows.push(Array(rowSize).fill(null));
+                remaining -= rowSize;
+                currentTier++;
+                if (currentTier > 5 && remaining > 0) { // Limit tiers to prevent too many small rows
+                    rows[rows.length - 1] = rows[rows.length - 1].concat(Array(remaining).fill(null));
+                    break;
                 }
-            } else {
-                // Member is selected, remove it
-                selectedSenbatsuMembers.splice(index, 1);
-                memberCard.classList.remove('selected');
             }
-            updateSelectedSenbatsuDisplay();
+
+            // Reverse the order to get pyramid (smaller rows first if intended as back)
+            // Or keep as is for front-facing pyramid
+            return rows.reverse(); // Baris terakhir (belakang) punya member paling banyak.
+        }
+
+
+        function generateFormationGrid(size) {
+            if (!senbatsuFormationGrid) return;
+            senbatsuFormationGrid.innerHTML = ''; // Bersihkan grid sebelumnya
+
+            if (size <= 0) {
+                senbatsuFormation = [];
+                updateSelectedSenbatsuDisplay();
+                return;
+            }
+
+            // Pastikan senbatsuFormation memiliki ukuran yang benar dan mempertahankan member yang sudah ada
+            const newFormation = Array(size).fill(null);
+            for(let i=0; i < Math.min(senbatsuFormation.length, size); i++) {
+                newFormation[i] = senbatsuFormation[i];
+            }
+            senbatsuFormation = newFormation;
+
+            const rows = calculateFormationRows(size);
+            let slotIndex = 0; // Index global untuk senbatsuFormation
+
+            rows.forEach((rowSizes, rowIndex) => {
+                const rowDiv = document.createElement('div');
+                rowDiv.classList.add('formation-row');
+                // Atur order baris agar yang paling depan (terkecil) berada di atas secara visual
+                rowDiv.style.order = rowIndex; // Baris pertama (index 0) paling depan
+
+                for (let i = 0; i < rowSizes.length; i++) {
+                    const currentSlotIndex = slotIndex++; // Ambil index dan inkremen
+
+                    const slotDiv = document.createElement('div');
+                    slotDiv.classList.add('formation-slot');
+                    slotDiv.dataset.index = currentSlotIndex; // Simpan index slot
+
+                    const memberInSlot = senbatsuFormation[currentSlotIndex];
+
+                    if (memberInSlot) {
+                        slotDiv.classList.add('filled');
+                        slotDiv.innerHTML = `
+                            <img src="images/${memberInSlot.image}" alt="${memberInSlot.name}">
+                            <p class="member-name">${translations[currentLang][memberInSlot.name] || memberInSlot.name}</p>
+                        `;
+                    } else {
+                        slotDiv.innerHTML = `<p>${translations[currentLang]['selectMemberPrompt']}</p>`;
+                    }
+
+                    slotDiv.addEventListener('click', (event) => {
+                        if (!memberInSlot) { // Hanya jika slot kosong
+                            showMemberDropdown(slotDiv, currentSlotIndex);
+                        } else { // Jika slot sudah terisi, klik untuk mengosongkan
+                            senbatsuFormation[currentSlotIndex] = null;
+                            generateFormationGrid(maxSenbatsuMembers); // Regenerasi untuk update tampilan
+                            updateSelectedSenbatsuDisplay();
+                        }
+                    });
+                    rowDiv.appendChild(slotDiv);
+                }
+                senbatsuFormationGrid.appendChild(rowDiv);
+            });
+            console.log("Formation grid generated with size:", size);
+            updateSelectedSenbatsuDisplay(); // Update summary
+        }
+
+
+        function showMemberDropdown(slotElement, slotIndex) {
+            // Hapus dropdown yang mungkin sudah ada
+            document.querySelectorAll('.member-dropdown').forEach(dropdown => dropdown.remove());
+
+            const dropdown = document.createElement('div');
+            dropdown.classList.add('member-dropdown');
+
+            // Tambahkan opsi "Clear" untuk mengosongkan slot
+            const clearOption = document.createElement('div');
+            clearOption.classList.add('member-dropdown-item');
+            clearOption.textContent = `--- ${translations[currentLang]['noMemberSelected']} ---`;
+            clearOption.addEventListener('click', () => {
+                senbatsuFormation[slotIndex] = null;
+                generateFormationGrid(maxSenbatsuMembers);
+                updateSelectedSenbatsuDisplay();
+                dropdown.remove();
+            });
+            dropdown.appendChild(clearOption);
+
+            // Filter member yang belum terpilih di formasi
+            const availableMembers = members.filter(member =>
+                !senbatsuFormation.some(selected => selected && selected.name === member.name)
+            );
+
+            availableMembers.forEach(member => {
+                const item = document.createElement('div');
+                item.classList.add('member-dropdown-item');
+                item.dataset.name = member.name;
+                item.innerHTML = `<img src="images/${member.image}" alt="${member.name}"> ${translations[currentLang][member.name] || member.name}`;
+
+                item.addEventListener('click', () => {
+                    senbatsuFormation[slotIndex] = member; // Isi slot dengan member yang dipilih
+                    generateFormationGrid(maxSenbatsuMembers); // Regenerate grid untuk update
+                    updateSelectedSenbatsuDisplay();
+                    dropdown.remove(); // Hapus dropdown setelah memilih
+                });
+                dropdown.appendChild(item);
+            });
+
+            // Atur posisi dropdown relatif terhadap slot
+            // Kita akan menempatkan dropdown di dalam slot itu sendiri dan mengaturnya dengan CSS
+            slotElement.appendChild(dropdown);
+            dropdown.style.top = '0';
+            dropdown.style.left = '0';
+            dropdown.style.width = '100%';
+            dropdown.style.height = '100%'; // Agar menutupi slot
+            console.log(`Showing dropdown for slot index: ${slotIndex}`);
         }
 
         function updateSelectedSenbatsuDisplay() {
-            selectedSenbatsuList.innerHTML = ''; // Clear previous list
-            if (selectedSenbatsuMembers.length > 0) {
+            if (!selectedSenbatsuList || !senbatsuSummary) return;
+
+            selectedSenbatsuList.innerHTML = '';
+            const filledMembers = senbatsuFormation.filter(m => m !== null);
+
+            if (filledMembers.length > 0) {
                 senbatsuSummary.classList.remove('hidden');
-                selectedSenbatsuMembers.forEach(member => {
+                filledMembers.forEach(member => {
                     const selectedItem = document.createElement('div');
                     selectedItem.classList.add('selected-member-item');
                     selectedItem.innerHTML = `
@@ -515,31 +689,57 @@
             } else {
                 senbatsuSummary.classList.add('hidden');
             }
+            console.log("Selected senbatsu summary updated. Filled slots:", filledMembers.length);
         }
 
         function resetSenbatsuFormation() {
-            selectedSenbatsuMembers = [];
-            renderSenbatsuMembersGrid(); // Re-render to deselect all
-            updateSelectedSenbatsuDisplay(); // Hide summary
+            senbatsuFormation = Array(maxSenbatsuMembers).fill(null); // Kosongkan semua slot
+            generateFormationGrid(maxSenbatsuMembers); // Regenerasi grid
+            updateSelectedSenbatsuDisplay(); // Sembunyikan summary
+            console.log("Senbatsu formation reset.");
         }
 
         // --- Senbatsu Event Listeners ---
-        senbatsuSizeInput.addEventListener('change', (e) => {
-            maxSenbatsuMembers = parseInt(e.target.value);
-            if (selectedSenbatsuMembers.length > maxSenbatsuMembers) {
-                selectedSenbatsuMembers = selectedSenbatsuMembers.slice(0, maxSenbatsuMembers); // Truncate if size reduces
-                updateSelectedSenbatsuDisplay();
-                renderSenbatsuMembersGrid(); // Update card selected states
+        senbatsuSizeInput?.addEventListener('change', (e) => {
+            const newSize = parseInt(e.target.value);
+            if (!isNaN(newSize) && newSize >= 1 && newSize <= members.length) {
+                maxSenbatsuMembers = newSize;
+                generateFormationGrid(maxSenbatsuMembers); // Regenerasi grid dengan ukuran baru
+            } else {
+                e.target.value = maxSenbatsuMembers; // Reset ke nilai sebelumnya jika tidak valid
+            }
+            console.log("Senbatsu size changed to:", maxSenbatsuMembers);
+        });
+        resetSenbatsuButton?.addEventListener('click', resetSenbatsuFormation);
+
+        downloadSenbatsuButton?.addEventListener('click', () => {
+            if (senbatsuFormationGrid) {
+                html2canvas(senbatsuFormationGrid, {
+                    useCORS: true,
+                    scale: 2,
+                    backgroundColor: '#ffffff'
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `rain_tree_senbatsu_formation_${currentLang}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                });
+            } else {
+                console.error("Senbatsu formation grid not found for download.");
             }
         });
-        resetSenbatsuButton.addEventListener('click', resetSenbatsuFormation);
+
 
         // Initialize senbatsu specific language settings and render grid
         setLanguage('id'); // Default language for senbatsu page
-        renderSenbatsuMembersGrid(); // Initial render of the grid
+        generateFormationGrid(parseInt(senbatsuSizeInput.value)); // Initial render of the grid
+        console.log("Senbatsu page script fully executed.");
     }
 
     // Set initial language for any common elements (like language buttons themselves)
     // This will also trigger the page-specific setLanguage logic due to the if/else if blocks
-    setLanguage('id');
+    // Jika tidak di halaman sorter atau senbatsu (misal index.html), setLanguage akan tetap jalan untuk elemen umum.
+    if (!window.location.pathname.includes('sorter.html') && !window.location.pathname.includes('senbatsu.html')) {
+        setLanguage('id'); // Ini hanya akan dipanggil jika ini bukan sorter/senbatsu page (misal index.html)
+    }
 });
